@@ -1,0 +1,513 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FBB8E4CD19F5446200A482A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4CC19F5446200A482A3 /* Foundation.framework */; };
+		FBB8E4CF19F5446200A482A3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4CE19F5446200A482A3 /* CoreGraphics.framework */; };
+		FBB8E4D119F5446200A482A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4D019F5446200A482A3 /* UIKit.framework */; };
+		FBB8E4D319F5446200A482A3 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4D219F5446200A482A3 /* SpriteKit.framework */; };
+		FBB8E4D919F5446200A482A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E4D719F5446200A482A3 /* InfoPlist.strings */; };
+		FBB8E4DB19F5446200A482A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB8E4DA19F5446200A482A3 /* main.m */; };
+		FBB8E4DF19F5446200A482A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB8E4DE19F5446200A482A3 /* AppDelegate.m */; };
+		FBB8E4E219F5446200A482A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E4E019F5446200A482A3 /* Main.storyboard */; };
+		FBB8E4E519F5446200A482A3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB8E4E419F5446200A482A3 /* ViewController.m */; };
+		FBB8E4E819F5446200A482A3 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB8E4E719F5446200A482A3 /* MyScene.m */; };
+		FBB8E4EA19F5446200A482A3 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E4E919F5446200A482A3 /* Spaceship.png */; };
+		FBB8E4EC19F5446200A482A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E4EB19F5446200A482A3 /* Images.xcassets */; };
+		FBB8E4F319F5446200A482A3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4F219F5446200A482A3 /* XCTest.framework */; };
+		FBB8E4F419F5446200A482A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4CC19F5446200A482A3 /* Foundation.framework */; };
+		FBB8E4F519F5446200A482A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4D019F5446200A482A3 /* UIKit.framework */; };
+		FBB8E4FD19F5446200A482A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E4FB19F5446200A482A3 /* InfoPlist.strings */; };
+		FBB8E4FF19F5446200A482A3 /* Viking_MadnessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB8E4FE19F5446200A482A3 /* Viking_MadnessTests.m */; };
+		FBB8E50A19F5470200A482A3 /* mainMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E50919F5470200A482A3 /* mainMenu.png */; };
+		FBB8E50D19F54C9A00A482A3 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E50C19F54C9A00A482A3 /* logo.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FBB8E4F619F5446200A482A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FBB8E4C119F5446200A482A3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBB8E4C819F5446200A482A3;
+			remoteInfo = "Viking Madness";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FBB8E4C919F5446200A482A3 /* Viking Madness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Viking Madness.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBB8E4CC19F5446200A482A3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FBB8E4CE19F5446200A482A3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FBB8E4D019F5446200A482A3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		FBB8E4D219F5446200A482A3 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		FBB8E4D619F5446200A482A3 /* Viking Madness-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Viking Madness-Info.plist"; sourceTree = "<group>"; };
+		FBB8E4D819F5446200A482A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FBB8E4DA19F5446200A482A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FBB8E4DC19F5446200A482A3 /* Viking Madness-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Viking Madness-Prefix.pch"; sourceTree = "<group>"; };
+		FBB8E4DD19F5446200A482A3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		FBB8E4DE19F5446200A482A3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		FBB8E4E119F5446200A482A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FBB8E4E319F5446200A482A3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		FBB8E4E419F5446200A482A3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FBB8E4E619F5446200A482A3 /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
+		FBB8E4E719F5446200A482A3 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
+		FBB8E4E919F5446200A482A3 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		FBB8E4EB19F5446200A482A3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		FBB8E4F119F5446200A482A3 /* Viking MadnessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Viking MadnessTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBB8E4F219F5446200A482A3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		FBB8E4FA19F5446200A482A3 /* Viking MadnessTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Viking MadnessTests-Info.plist"; sourceTree = "<group>"; };
+		FBB8E4FC19F5446200A482A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FBB8E4FE19F5446200A482A3 /* Viking_MadnessTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Viking_MadnessTests.m; sourceTree = "<group>"; };
+		FBB8E50919F5470200A482A3 /* mainMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainMenu.png; sourceTree = "<group>"; };
+		FBB8E50C19F54C9A00A482A3 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FBB8E4C619F5446200A482A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBB8E4CF19F5446200A482A3 /* CoreGraphics.framework in Frameworks */,
+				FBB8E4D119F5446200A482A3 /* UIKit.framework in Frameworks */,
+				FBB8E4D319F5446200A482A3 /* SpriteKit.framework in Frameworks */,
+				FBB8E4CD19F5446200A482A3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBB8E4EE19F5446200A482A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBB8E4F319F5446200A482A3 /* XCTest.framework in Frameworks */,
+				FBB8E4F519F5446200A482A3 /* UIKit.framework in Frameworks */,
+				FBB8E4F419F5446200A482A3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FBB8E4C019F5446200A482A3 = {
+			isa = PBXGroup;
+			children = (
+				FBB8E4D419F5446200A482A3 /* Viking Madness */,
+				FBB8E4F819F5446200A482A3 /* Viking MadnessTests */,
+				FBB8E4CB19F5446200A482A3 /* Frameworks */,
+				FBB8E4CA19F5446200A482A3 /* Products */,
+				FBB8E50819F5469400A482A3 /* Art */,
+			);
+			sourceTree = "<group>";
+		};
+		FBB8E4CA19F5446200A482A3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FBB8E4C919F5446200A482A3 /* Viking Madness.app */,
+				FBB8E4F119F5446200A482A3 /* Viking MadnessTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FBB8E4CB19F5446200A482A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FBB8E4CC19F5446200A482A3 /* Foundation.framework */,
+				FBB8E4CE19F5446200A482A3 /* CoreGraphics.framework */,
+				FBB8E4D019F5446200A482A3 /* UIKit.framework */,
+				FBB8E4D219F5446200A482A3 /* SpriteKit.framework */,
+				FBB8E4F219F5446200A482A3 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FBB8E4D419F5446200A482A3 /* Viking Madness */ = {
+			isa = PBXGroup;
+			children = (
+				FBB8E4DD19F5446200A482A3 /* AppDelegate.h */,
+				FBB8E4DE19F5446200A482A3 /* AppDelegate.m */,
+				FBB8E4E019F5446200A482A3 /* Main.storyboard */,
+				FBB8E4E319F5446200A482A3 /* ViewController.h */,
+				FBB8E4E419F5446200A482A3 /* ViewController.m */,
+				FBB8E4E619F5446200A482A3 /* MyScene.h */,
+				FBB8E4E719F5446200A482A3 /* MyScene.m */,
+				FBB8E4E919F5446200A482A3 /* Spaceship.png */,
+				FBB8E4EB19F5446200A482A3 /* Images.xcassets */,
+				FBB8E4D519F5446200A482A3 /* Supporting Files */,
+			);
+			path = "Viking Madness";
+			sourceTree = "<group>";
+		};
+		FBB8E4D519F5446200A482A3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FBB8E4D619F5446200A482A3 /* Viking Madness-Info.plist */,
+				FBB8E4D719F5446200A482A3 /* InfoPlist.strings */,
+				FBB8E4DA19F5446200A482A3 /* main.m */,
+				FBB8E4DC19F5446200A482A3 /* Viking Madness-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FBB8E4F819F5446200A482A3 /* Viking MadnessTests */ = {
+			isa = PBXGroup;
+			children = (
+				FBB8E4FE19F5446200A482A3 /* Viking_MadnessTests.m */,
+				FBB8E4F919F5446200A482A3 /* Supporting Files */,
+			);
+			path = "Viking MadnessTests";
+			sourceTree = "<group>";
+		};
+		FBB8E4F919F5446200A482A3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FBB8E4FA19F5446200A482A3 /* Viking MadnessTests-Info.plist */,
+				FBB8E4FB19F5446200A482A3 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FBB8E50819F5469400A482A3 /* Art */ = {
+			isa = PBXGroup;
+			children = (
+				FBB8E50B19F5470600A482A3 /* Background */,
+			);
+			name = Art;
+			sourceTree = "<group>";
+		};
+		FBB8E50B19F5470600A482A3 /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				FBB8E50C19F54C9A00A482A3 /* logo.png */,
+				FBB8E50919F5470200A482A3 /* mainMenu.png */,
+			);
+			name = Background;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FBB8E4C819F5446200A482A3 /* Viking Madness */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBB8E50219F5446200A482A3 /* Build configuration list for PBXNativeTarget "Viking Madness" */;
+			buildPhases = (
+				FBB8E4C519F5446200A482A3 /* Sources */,
+				FBB8E4C619F5446200A482A3 /* Frameworks */,
+				FBB8E4C719F5446200A482A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Viking Madness";
+			productName = "Viking Madness";
+			productReference = FBB8E4C919F5446200A482A3 /* Viking Madness.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FBB8E4F019F5446200A482A3 /* Viking MadnessTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBB8E50519F5446200A482A3 /* Build configuration list for PBXNativeTarget "Viking MadnessTests" */;
+			buildPhases = (
+				FBB8E4ED19F5446200A482A3 /* Sources */,
+				FBB8E4EE19F5446200A482A3 /* Frameworks */,
+				FBB8E4EF19F5446200A482A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FBB8E4F719F5446200A482A3 /* PBXTargetDependency */,
+			);
+			name = "Viking MadnessTests";
+			productName = "Viking MadnessTests";
+			productReference = FBB8E4F119F5446200A482A3 /* Viking MadnessTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FBB8E4C119F5446200A482A3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = iOSP;
+				TargetAttributes = {
+					FBB8E4F019F5446200A482A3 = {
+						TestTargetID = FBB8E4C819F5446200A482A3;
+					};
+				};
+			};
+			buildConfigurationList = FBB8E4C419F5446200A482A3 /* Build configuration list for PBXProject "Viking Madness" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FBB8E4C019F5446200A482A3;
+			productRefGroup = FBB8E4CA19F5446200A482A3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FBB8E4C819F5446200A482A3 /* Viking Madness */,
+				FBB8E4F019F5446200A482A3 /* Viking MadnessTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FBB8E4C719F5446200A482A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBB8E4D919F5446200A482A3 /* InfoPlist.strings in Resources */,
+				FBB8E4EC19F5446200A482A3 /* Images.xcassets in Resources */,
+				FBB8E50D19F54C9A00A482A3 /* logo.png in Resources */,
+				FBB8E4EA19F5446200A482A3 /* Spaceship.png in Resources */,
+				FBB8E50A19F5470200A482A3 /* mainMenu.png in Resources */,
+				FBB8E4E219F5446200A482A3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBB8E4EF19F5446200A482A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBB8E4FD19F5446200A482A3 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FBB8E4C519F5446200A482A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBB8E4E819F5446200A482A3 /* MyScene.m in Sources */,
+				FBB8E4E519F5446200A482A3 /* ViewController.m in Sources */,
+				FBB8E4DF19F5446200A482A3 /* AppDelegate.m in Sources */,
+				FBB8E4DB19F5446200A482A3 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBB8E4ED19F5446200A482A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBB8E4FF19F5446200A482A3 /* Viking_MadnessTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FBB8E4F719F5446200A482A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBB8E4C819F5446200A482A3 /* Viking Madness */;
+			targetProxy = FBB8E4F619F5446200A482A3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FBB8E4D719F5446200A482A3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FBB8E4D819F5446200A482A3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		FBB8E4E019F5446200A482A3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FBB8E4E119F5446200A482A3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FBB8E4FB19F5446200A482A3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FBB8E4FC19F5446200A482A3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FBB8E50019F5446200A482A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		FBB8E50119F5446200A482A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FBB8E50319F5446200A482A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Viking Madness/Viking Madness-Prefix.pch";
+				INFOPLIST_FILE = "Viking Madness/Viking Madness-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		FBB8E50419F5446200A482A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Viking Madness/Viking Madness-Prefix.pch";
+				INFOPLIST_FILE = "Viking Madness/Viking Madness-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		FBB8E50619F5446200A482A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Viking Madness.app/Viking Madness";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Viking Madness/Viking Madness-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Viking MadnessTests/Viking MadnessTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		FBB8E50719F5446200A482A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Viking Madness.app/Viking Madness";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Viking Madness/Viking Madness-Prefix.pch";
+				INFOPLIST_FILE = "Viking MadnessTests/Viking MadnessTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FBB8E4C419F5446200A482A3 /* Build configuration list for PBXProject "Viking Madness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBB8E50019F5446200A482A3 /* Debug */,
+				FBB8E50119F5446200A482A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBB8E50219F5446200A482A3 /* Build configuration list for PBXNativeTarget "Viking Madness" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBB8E50319F5446200A482A3 /* Debug */,
+				FBB8E50419F5446200A482A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FBB8E50519F5446200A482A3 /* Build configuration list for PBXNativeTarget "Viking MadnessTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBB8E50619F5446200A482A3 /* Debug */,
+				FBB8E50719F5446200A482A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FBB8E4C119F5446200A482A3 /* Project object */;
+}
