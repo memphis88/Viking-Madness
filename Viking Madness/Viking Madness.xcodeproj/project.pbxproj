@@ -26,6 +26,7 @@
 		FBB8E4FF19F5446200A482A3 /* Viking_MadnessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB8E4FE19F5446200A482A3 /* Viking_MadnessTests.m */; };
 		FBB8E50A19F5470200A482A3 /* mainMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E50919F5470200A482A3 /* mainMenu.png */; };
 		FBB8E50D19F54C9A00A482A3 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E50C19F54C9A00A482A3 /* logo.png */; };
+		FBB8E50F19F5566200A482A3 /* signButton.png in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E50E19F5566200A482A3 /* signButton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		FBB8E4FE19F5446200A482A3 /* Viking_MadnessTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Viking_MadnessTests.m; sourceTree = "<group>"; };
 		FBB8E50919F5470200A482A3 /* mainMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainMenu.png; sourceTree = "<group>"; };
 		FBB8E50C19F54C9A00A482A3 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		FBB8E50E19F5566200A482A3 /* signButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 		FBB8E50819F5469400A482A3 /* Art */ = {
 			isa = PBXGroup;
 			children = (
+				FBB8E51019F5566600A482A3 /* Buttons */,
 				FBB8E50B19F5470600A482A3 /* Background */,
 			);
 			name = Art;
@@ -184,6 +187,14 @@
 				FBB8E50919F5470200A482A3 /* mainMenu.png */,
 			);
 			name = Background;
+			sourceTree = "<group>";
+		};
+		FBB8E51019F5566600A482A3 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				FBB8E50E19F5566200A482A3 /* signButton.png */,
+			);
+			name = Buttons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +244,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = iOSP;
 				TargetAttributes = {
+					FBB8E4C819F5446200A482A3 = {
+						DevelopmentTeam = 8VP2CK62GJ;
+					};
 					FBB8E4F019F5446200A482A3 = {
 						TestTargetID = FBB8E4C819F5446200A482A3;
 					};
@@ -266,6 +280,7 @@
 				FBB8E4EC19F5446200A482A3 /* Images.xcassets in Resources */,
 				FBB8E50D19F54C9A00A482A3 /* logo.png in Resources */,
 				FBB8E4EA19F5446200A482A3 /* Spaceship.png in Resources */,
+				FBB8E50F19F5566200A482A3 /* signButton.png in Resources */,
 				FBB8E50A19F5470200A482A3 /* mainMenu.png in Resources */,
 				FBB8E4E219F5446200A482A3 /* Main.storyboard in Resources */,
 			);
@@ -416,10 +431,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Viking Madness/Viking Madness-Prefix.pch";
 				INFOPLIST_FILE = "Viking Madness/Viking Madness-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -430,10 +448,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Viking Madness/Viking Madness-Prefix.pch";
 				INFOPLIST_FILE = "Viking Madness/Viking Madness-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};

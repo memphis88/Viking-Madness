@@ -12,6 +12,8 @@
 {
     SKSpriteNode *_background;
     SKSpriteNode *_logo;
+    SKSpriteNode *_playButton;
+    SKSpriteNode *_optionsButton;
 }
 
 -(id)initWithSize:(CGSize)size {    
@@ -19,8 +21,11 @@
         /* Setup your scene here */
         
         [self initBackground];
+        [self initButtons];
         [self addChild:_background];
         [self addChild:_logo];
+        [self addChild:_playButton];
+        [self addChild:_optionsButton];
     }
     return self;
 }
@@ -49,6 +54,19 @@
     
     SKAction *blinkSequence = [SKAction repeatActionForever:[SKAction sequence:@[hide, show]]];
     [_logo runAction:blinkSequence];
+}
+
+-(void)initButtons
+{
+    _playButton = [SKSpriteNode spriteNodeWithImageNamed:@"signButton.png"];
+    _playButton.xScale = 0.8;
+    _playButton.yScale = 0.5;
+    _playButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 3);
+    
+    _optionsButton = [SKSpriteNode spriteNodeWithImageNamed:@"signButton.png"];
+    _optionsButton.xScale = 0.8;
+    _optionsButton.yScale = 0.5;
+    _optionsButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 2);
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
