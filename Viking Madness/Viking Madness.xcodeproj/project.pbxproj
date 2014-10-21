@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FBA76BD119F6F2FD0011AE2E /* bubble_soap.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBA76BD019F6F2FD0011AE2E /* bubble_soap.ttf */; };
 		FBB8E4CD19F5446200A482A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4CC19F5446200A482A3 /* Foundation.framework */; };
 		FBB8E4CF19F5446200A482A3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4CE19F5446200A482A3 /* CoreGraphics.framework */; };
 		FBB8E4D119F5446200A482A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4D019F5446200A482A3 /* UIKit.framework */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FBA76BD019F6F2FD0011AE2E /* bubble_soap.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bubble_soap.ttf; sourceTree = "<group>"; };
 		FBB8E4C919F5446200A482A3 /* Viking Madness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Viking Madness.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBB8E4CC19F5446200A482A3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FBB8E4CE19F5446200A482A3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -93,6 +95,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FBA76BCF19F6F2C00011AE2E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				FBA76BD019F6F2FD0011AE2E /* bubble_soap.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		FBB8E4C019F5446200A482A3 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +110,7 @@
 				FBB8E4F819F5446200A482A3 /* Viking MadnessTests */,
 				FBB8E4CB19F5446200A482A3 /* Frameworks */,
 				FBB8E4CA19F5446200A482A3 /* Products */,
+				FBA76BCF19F6F2C00011AE2E /* Fonts */,
 				FBB8E50819F5469400A482A3 /* Art */,
 			);
 			sourceTree = "<group>";
@@ -277,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBB8E4D919F5446200A482A3 /* InfoPlist.strings in Resources */,
+				FBA76BD119F6F2FD0011AE2E /* bubble_soap.ttf in Resources */,
 				FBB8E4EC19F5446200A482A3 /* Images.xcassets in Resources */,
 				FBB8E50D19F54C9A00A482A3 /* logo.png in Resources */,
 				FBB8E4EA19F5446200A482A3 /* Spaceship.png in Resources */,
@@ -519,6 +531,7 @@
 				FBB8E50419F5446200A482A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FBB8E50519F5446200A482A3 /* Build configuration list for PBXNativeTarget "Viking MadnessTests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +540,7 @@
 				FBB8E50719F5446200A482A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

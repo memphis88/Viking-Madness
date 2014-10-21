@@ -14,6 +14,8 @@
     SKSpriteNode *_logo;
     SKSpriteNode *_playButton;
     SKSpriteNode *_optionsButton;
+    SKLabelNode *_play;
+    SKLabelNode *_options;
 }
 
 -(id)initWithSize:(CGSize)size {    
@@ -22,10 +24,8 @@
         
         [self initBackground];
         [self initButtons];
-        [self addChild:_background];
-        [self addChild:_logo];
-        [self addChild:_playButton];
-        [self addChild:_optionsButton];
+        [self initLabels];
+        
     }
     return self;
 }
@@ -54,6 +54,9 @@
     
     SKAction *blinkSequence = [SKAction repeatActionForever:[SKAction sequence:@[hide, show]]];
     [_logo runAction:blinkSequence];
+    
+    [self addChild:_background];
+    [self addChild:_logo];
 }
 
 -(void)initButtons
@@ -67,6 +70,31 @@
     _optionsButton.xScale = 0.8;
     _optionsButton.yScale = 0.5;
     _optionsButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 2);
+    
+    [self addChild:_playButton];
+    [self addChild:_optionsButton];
+}
+
+-(void)initLabels
+{
+    _play = [SKLabelNode labelNodeWithFontNamed:@"bubble & soap"];
+    _play.text = @"Play!";
+    _play.fontSize = 60.0f;
+    _play.fontColor = [SKColor redColor];
+    _play.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
+    _play.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    _play.position = _playButton.position;
+    
+    _options = [SKLabelNode labelNodeWithFontNamed:@"bubble & soap"];
+    _options.text = @"Options";
+    _options.fontSize = 60.0f;
+    _options.fontColor = [SKColor redColor];
+    _options.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
+    _options.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    _options.position = _optionsButton.position;
+    
+    [self addChild:_play];
+    [self addChild:_options];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
