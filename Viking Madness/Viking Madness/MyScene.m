@@ -7,6 +7,7 @@
 //
 
 #import "MyScene.h"
+#import "FirstLevel.h"
 
 @implementation MyScene
 {
@@ -62,6 +63,7 @@
 -(void)initButtons
 {
     _playButton = [SKSpriteNode spriteNodeWithImageNamed:@"signButton.png"];
+    _playButton.name = @"playButton";
     _playButton.xScale = 0.8;
     _playButton.yScale = 0.5;
     _playButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 3);
@@ -78,6 +80,7 @@
 -(void)initLabels
 {
     _play = [SKLabelNode labelNodeWithFontNamed:@"bubble & soap"];
+    _play.name = @"play";
     _play.text = @"Play!";
     _play.fontSize = 60.0f;
     _play.fontColor = [SKColor redColor];
@@ -99,6 +102,26 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
+    //dummy scene call
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    NSArray *nodes = [self nodesAtPoint:location];
+    for (SKNode *node in nodes) {
+        //go through nodes, get the zPosition if you want
+        //int nodePos = node.zPosition;
+        
+        //or check the node against your nodes
+        if ([node.name isEqualToString:@"play"] || [node.name isEqualToString:@"playButton"]) {
+            SKAction *block = [SKAction runBlock:^{
+                FirstLevel *myScene = [[FirstLevel alloc] initWithSize:self.size];
+                SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:0.5];
+                [self.view presentScene:myScene transition:reveal];
+            }];
+            [self runAction:block];
+        }
+    }
+    
+    //end
 }
 
 -(void)update:(CFTimeInterval)currentTime {
