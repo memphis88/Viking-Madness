@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5725913D-0CD3-4A97-AAB7-C027EDABBBA4</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Viking Madness</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4633E2E95845E39992B172075CDA40C8076F9987</key>
+		<string>https://bitbucket.org/memphis88/viking-madness.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Viking Madness/Viking Madness.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4633E2E95845E39992B172075CDA40C8076F9987</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/memphis88/viking-madness.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4633E2E95845E39992B172075CDA40C8076F9987</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4633E2E95845E39992B172075CDA40C8076F9987</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Viking%20Madness</string>
+		</dict>
+	</array>
+</dict>
+</plist>
