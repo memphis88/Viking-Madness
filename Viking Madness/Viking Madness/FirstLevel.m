@@ -8,6 +8,7 @@
 
 #import "FirstLevel.h"
 #import "Baelog.h"
+#import "Knight.h"
 
 @implementation FirstLevel
 {
@@ -15,8 +16,10 @@
     SKNode *_bgLayer;
     SKNode *_playerLayer;
     Baelog *_baelog;
+    Knight *_knight;
     int _debug;
     NSArray *_debugArray;
+    NSArray *_debugKnight;
 }
 
 #pragma mark Overriden methods
@@ -46,6 +49,11 @@
                     @"directPunch",
                     @"pushUp",
                     @"hang"];
+    _debugKnight = @[@"walkLeft",
+                     @"walkRight",
+                     @"slashLeft",
+                     @"slashRight"];
+    
     return self;
 }
 
@@ -63,8 +71,12 @@
 -(void)initEntities
 {
     _baelog = [[Baelog alloc] initWithPosition:CGPointMake(self.size.width/2, self.size.height/2)];
-    [_baelog runAction:[SKAction scaleTo:5.0 duration:0]];
+    _knight = [[Knight alloc] initWithPosition:CGPointMake(self.size.width/2 + 250, self.size.height/2)];
+    [_baelog runAction:[SKAction scaleTo:3.0 duration:0]];
+    [_knight runAction:[SKAction scaleTo:3.5 duration:0]];
+    
     [_playerLayer addChild:_baelog];
+    [_playerLayer addChild:_knight];
 }
 
 -(void)initTerrain
@@ -72,10 +84,17 @@
     
 }
 
--(SKAction *)animateWithKey:(NSString *)key
+-(SKAction *)animateBaelogWithKey:(NSString *)key
 {
     SKAction *action;
     action = [SKAction animateWithTextures:[_baelog animationTexturesWithKey:key] timePerFrame:0.1];
+    return action;
+}
+
+-(SKAction *)animateKnightWithKey:(NSString *)key
+{
+    SKAction *action;
+    action = [SKAction animateWithTextures:[_knight animationTexturesWithKey:key] timePerFrame:0.1];
     return action;
 }
 
@@ -89,11 +108,16 @@
 -(void)dummyAnimationDebug
 {
     [_baelog removeActionForKey:_debugArray[_debug]];
-    [_baelog runAction:[SKAction repeatActionForever:[self animateWithKey:_debugArray[_debug]]] withKey:_debugArray[_debug]];
+    [_baelog runAction:[SKAction repeatActionForever:[self animateBaelogWithKey:_debugArray[_debug]]] withKey:_debugArray[_debug]];
+    if (_debug < 4) {
+        [_knight removeActionForKey:_debugKnight[_debug]];
+        [_knight runAction:[SKAction repeatActionForever:[self animateKnightWithKey:_debugKnight[_debug]]] withKey:_debugKnight[_debug]];
+    }
     _debug++;
     if (_debug > 12) {
         _debug = 0;
     }
+    
 }
 
 @end
