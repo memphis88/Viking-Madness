@@ -17,6 +17,7 @@
     SKSpriteNode *_optionsButton;
     SKSpriteNode *_storyButton;
     SKSpriteNode *_brawlerButton;
+    SKSpriteNode *_backButton;
     
     SKNode *_buttons;
     
@@ -24,6 +25,7 @@
     SKLabelNode *_options;
     SKLabelNode *_story;
     SKLabelNode *_brawler;
+    SKLabelNode *_back;
     
     SKAction *_fade;
     SKAction *_tilt;
@@ -75,13 +77,13 @@
     _playButton.name = @"playButton";
     _playButton.xScale = 0.9;
     _playButton.yScale = 0.4;
-    _playButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 3);
+    _playButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 4);
     
     _optionsButton = [SKSpriteNode spriteNodeWithImageNamed:@"signButton.png"];
     _optionsButton.name = @"optionsButton";
     _optionsButton.xScale = 0.9;
     _optionsButton.yScale = 0.4;
-    _optionsButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 2);
+    _optionsButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 3);
     _optionsButton.color = [SKColor grayColor];
     _optionsButton.colorBlendFactor = 1.0;
     
@@ -89,15 +91,21 @@
     _storyButton.name = @"storyButton";
     _storyButton.xScale = 0.9;
     _storyButton.yScale = 0.4;
-    _storyButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 3);
+    _storyButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 4);
     
     _brawlerButton = [SKSpriteNode spriteNodeWithImageNamed:@"signButton.png"];
     _brawlerButton.name = @"brawlerButton";
     _brawlerButton.xScale = 0.9;
     _brawlerButton.yScale = 0.4;
-    _brawlerButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 2);
+    _brawlerButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 3);
     _brawlerButton.color = [SKColor grayColor];
     _brawlerButton.colorBlendFactor = 1.0;
+    
+    _backButton = [SKSpriteNode spriteNodeWithImageNamed:@"signButton.png"];
+    _backButton.name = @"backButton";
+    _backButton.xScale = 0.9;
+    _backButton.yScale = 0.4;
+    _backButton.position = CGPointMake(self.size.width/2, self.size.height/10 * 2);
     
     _buttons = [SKNode node];
     [self addChild:_buttons];
@@ -143,6 +151,15 @@
     _brawler.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
     _brawler.position = _brawlerButton.position;
     
+    _back = [SKLabelNode labelNodeWithFontNamed:@"bubble & soap"];
+    _back.name = @"back";
+    _back.text = @"Back";
+    _back.fontSize = 60.0f;
+    _back.fontColor = [SKColor redColor];
+    _back.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
+    _back.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    _back.position = _backButton.position;
+    
     [_buttons addChild:_play];
     [_buttons addChild:_options];
 }
@@ -160,6 +177,10 @@
         //or check the node against your nodes
         if ([node.name isEqualToString:@"play"] || [node.name isEqualToString:@"playButton"]) {
             [self playPressed];
+            break;
+        }
+        if ([node.name isEqualToString:@"back"] || [node.name isEqualToString:@"backButton"]) {
+            [self backPressed];
             break;
         }
         if ([node.name isEqualToString:@"story"] || [node.name isEqualToString:@"storyButton"]) {
@@ -189,6 +210,21 @@
         [_buttons addChild:_brawlerButton];
         [_buttons addChild:_story];
         [_buttons addChild:_brawler];
+        [_buttons addChild:_backButton];
+        [_buttons addChild:_back];
+    }],
+                                             [SKAction fadeInWithDuration:0.5]]]];
+}
+
+-(void)backPressed
+{
+    [_buttons runAction:[SKAction sequence:@[_fade,
+                                            [SKAction customActionWithDuration:0 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
+        [_buttons removeAllChildren];
+        [_buttons addChild:_playButton];
+        [_buttons addChild:_play];
+        [_buttons addChild:_optionsButton];
+        [_buttons addChild:_options];
     }],
                                              [SKAction fadeInWithDuration:0.5]]]];
 }

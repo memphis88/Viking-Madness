@@ -22,6 +22,7 @@
     NSArray *_directPunch;
     NSArray *_pushUp;
     NSArray *_hang;
+    NSArray *_singleFrame;
 }
 
 -(instancetype)initWithPosition:(CGPoint)position
@@ -71,6 +72,8 @@
         return [self pushUpAnimation];
     } else if ([key isEqualToString:@"hang"]) {
         return [self hangAnimation];
+    } else if ([key isEqualToString:@"frame"]) {
+        return [self singleFrame];
     }
     return nil;
 }
@@ -113,6 +116,11 @@
     }
     NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
     for (int i=0; i < 2; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"Baelog-2-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    for (int i=1; i >=0 ; i--) {
         NSString *textureName = [NSString stringWithFormat:@"Baelog-2-%d", i];
         SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
         [textures addObject:texture];
@@ -192,6 +200,11 @@
         SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
         [textures addObject:texture];
     }
+    for (int i=2; i >= 0; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"Baelog-7-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
     _idle2 = [NSArray arrayWithArray:textures];
     return _idle2;
 }
@@ -203,6 +216,11 @@
     }
     NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
     for (int i=0; i < 4; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"Baelog-8-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    for (int i=3; i >= 0; i--) {
         NSString *textureName = [NSString stringWithFormat:@"Baelog-8-%d", i];
         SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
         [textures addObject:texture];
@@ -254,6 +272,15 @@
     }
     _hang = [NSArray arrayWithArray:textures];
     return _hang;
+}
+
+-(NSArray *)singleFrame
+{
+    if (_singleFrame) {
+        return _singleFrame;
+    }
+    _singleFrame = [NSArray arrayWithObject:[SKTexture textureWithImageNamed:@"Baelog-2-0"]];
+    return _singleFrame;
 }
 
 

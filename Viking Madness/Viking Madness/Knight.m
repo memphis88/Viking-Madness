@@ -29,7 +29,7 @@
     static SKTexture *texture = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        SKSpriteNode *baelog = [SKSpriteNode spriteNodeWithImageNamed:@"Knight_Walk_00"];
+        SKSpriteNode *baelog = [SKSpriteNode spriteNodeWithImageNamed:@"Knight_Walk_0"];
         SKView *textureView = [SKView new];
         texture = [textureView textureFromNode:baelog];
         texture.filteringMode = SKTextureFilteringNearest;
