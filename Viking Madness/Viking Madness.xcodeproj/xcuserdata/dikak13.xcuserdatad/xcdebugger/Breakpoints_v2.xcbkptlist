@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Viking Madness/Baelog.m"
-            timestampString = "436361577.436781"
+            timestampString = "436446602.171035"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
             landmarkName = "-idle2Animation"
             landmarkType = "5">
          </BreakpointContent>

@@ -10,4 +10,6 @@
 
 @interface Baelog : Entity
 
+@property (nonatomic) BOOL rightDirection;
+
 @end

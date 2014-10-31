@@ -23,6 +23,20 @@
     NSArray *_pushUp;
     NSArray *_hang;
     NSArray *_singleFrame;
+    
+    NSArray *_walkL;
+    NSArray *_climbL;
+    NSArray *_idleL;
+    NSArray *_fallL;
+    NSArray *_swordSwingL;
+    NSArray *_pushObjectL;
+    NSArray *_struckL;
+    NSArray *_idle2L;
+    NSArray *_idle3L;
+    NSArray *_directPunchL;
+    NSArray *_pushUpL;
+    NSArray *_hangL;
+    NSArray *_singleFrameL;
 }
 
 -(instancetype)initWithPosition:(CGPoint)position
@@ -74,9 +88,37 @@
         return [self hangAnimation];
     } else if ([key isEqualToString:@"frame"]) {
         return [self singleFrame];
+    } else if ([key isEqualToString:@"walkLeft"]) {
+        return [self walkAnimationLeft];
+    } else if ([key isEqualToString:@"climbLeft"]) {
+        return [self climbAnimationLeft];
+    } else if ([key isEqualToString:@"idleLeft"]) {
+        return [self idleAnimationLeft];
+    } else if ([key isEqualToString:@"fallLeft"]) {
+        return [self fallAnimationLeft];
+    } else if ([key isEqualToString:@"swordSwingLeft"]) {
+        return [self swordSwingAnimationLeft];
+    } else if ([key isEqualToString:@"pushObjectLeft"]) {
+        return [self pushObjectAnimationLeft];
+    } else if ([key isEqualToString:@"struckLeft"]) {
+        return [self struckAnimationLeft];
+    } else if ([key isEqualToString:@"idle2Left"]) {
+        return [self idle2AnimationLeft];
+    } else if ([key isEqualToString:@"idle3Left"]) {
+        return [self idle3AnimationLeft];
+    } else if ([key isEqualToString:@"directPunchLeft"]) {
+        return [self directPunchAnimationLeft];
+    } else if ([key isEqualToString:@"pushUpLeft"]) {
+        return [self pushUpAnimationLeft];
+    } else if ([key isEqualToString:@"hangLeft"]) {
+        return [self hangAnimationLeft];
+    } else if ([key isEqualToString:@"frameLeft"]) {
+        return [self singleFrameLeft];
     }
     return nil;
 }
+
+#pragma mark Right Movement
 
 -(NSArray *)walkAnimation
 {
@@ -281,6 +323,212 @@
     }
     _singleFrame = [NSArray arrayWithObject:[SKTexture textureWithImageNamed:@"Baelog-2-0"]];
     return _singleFrame;
+}
+
+#pragma mark Left Movement
+
+-(NSArray *)walkAnimationLeft
+{
+    if (_walkL) {
+        return _walkL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 0; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-0-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _walkL = [NSArray arrayWithArray:textures];
+    return _walkL;
+}
+
+-(NSArray *)climbAnimationLeft
+{
+    if (_climbL) {
+        return _climbL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 0; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-1-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _climbL = [NSArray arrayWithArray:textures];
+    return _climbL;
+}
+
+-(NSArray *)idleAnimationLeft
+{
+    if (_idleL) {
+        return _idleL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 6; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-2-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    for (int i=6; i <= 7 ; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-2-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _idleL = [NSArray arrayWithArray:textures];
+    return _idleL;
+}
+
+-(NSArray *)fallAnimationLeft
+{
+    if (_fallL) {
+        return _fallL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 6; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-3-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _fallL = [NSArray arrayWithArray:textures];
+    return _fallL;
+}
+
+-(NSArray *)swordSwingAnimationLeft
+{
+    if (_swordSwingL) {
+        return _swordSwingL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 2; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-4-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _swordSwingL = [NSArray arrayWithArray:textures];
+    return _swordSwingL;
+}
+
+-(NSArray *)pushObjectAnimationLeft
+{
+    if (_pushObjectL) {
+        return _pushObjectL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 4; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-5-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _pushObjectL = [NSArray arrayWithArray:textures];
+    return _pushObjectL;
+}
+
+-(NSArray *)struckAnimationLeft
+{
+    if (_struckL) {
+        return _struckL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 6; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-6-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _struckL = [NSArray arrayWithArray:textures];
+    return _struckL;
+}
+
+-(NSArray *)idle2AnimationLeft
+{
+    if (_idle2L) {
+        return _idle2L;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 5; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-7-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    for (int i=5; i <= 7; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-7-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _idle2L = [NSArray arrayWithArray:textures];
+    return _idle2L;
+}
+
+-(NSArray *)idle3AnimationLeft
+{
+    if (_idle3L) {
+        return _idle3L;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 4; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-8-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    for (int i=4; i >= 7; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-8-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _idle3L = [NSArray arrayWithArray:textures];
+    return _idle3L;
+}
+
+-(NSArray *)directPunchAnimationLeft
+{
+    if (_directPunchL) {
+        return _directPunchL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 4; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog-9-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _directPunchL = [NSArray arrayWithArray:textures];
+    return _directPunchL;
+}
+
+-(NSArray *)pushUpAnimationLeft
+{
+    if (_pushUpL) {
+        return _pushUpL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 6; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog10-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _pushUpL = [NSArray arrayWithArray:textures];
+    return _pushUpL;
+}
+
+-(NSArray *)hangAnimationLeft
+{
+    if (_hangL) {
+        return _hangL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i=7; i >= 0; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog11-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _hangL = [NSArray arrayWithArray:textures];
+    return _hangL;
+}
+
+-(NSArray *)singleFrameLeft
+{
+    if (_singleFrameL) {
+        return _singleFrameL;
+    }
+    _singleFrameL = [NSArray arrayWithObject:[SKTexture textureWithImageNamed:@"LBaelog-2-7"]];
+    return _singleFrameL;
 }
 
 
