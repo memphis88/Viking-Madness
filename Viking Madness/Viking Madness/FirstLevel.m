@@ -11,14 +11,30 @@
 #import "Knight.h"
 #import "SKSpriteNode+DebugDraw.h"
 
+typedef NS_OPTIONS(uint32_t, VMPhysicsCategory)
+{
+    VMPhysicsCategoryTerrain    = 1 << 0,
+    VMPhysicsCategoryBaelog     = 1 << 1,
+    VMPhysicsCategoryCamera     = 1 << 2,
+    VMPhysicsCategoryKnight     = 1 << 3,
+};
+
+@interface FirstLevel () <SKPhysicsContactDelegate>
+
+@end
+
 @implementation FirstLevel
 {
     SKSpriteNode *_background;
+    SKSpriteNode *_level;
+    
     SKNode *_bgLayer;
     SKNode *_playerLayer;
     SKNode *_userInterface;
+    SKNode *_cameraFrame;
     Baelog *_baelog;
     Knight *_knight;
+    
     int _debug;
     NSArray *_debugArray;
     NSArray *_debugKnight;
@@ -39,7 +55,9 @@
     SKAction *_idleLeftAnimation;
     
     BOOL _idle;
+    BOOL _midAir;
     CGPoint _velocity;
+    int _currentSlice;
 }
 
 #pragma mark Overriden methods
@@ -48,38 +66,42 @@
 {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
-        _bgLayer = [SKNode node];
-        [self addChild:_bgLayer];
+        
         [self initBackground];
-        _playerLayer = [SKNode node];
-        [self addChild:_playerLayer];
+        [self initTerrain];
+        
         [self initEntities];
-        _userInterface = [SKNode node];
+        
+        [self initCameraFrame];
         [self initUserInterface];
-        [self addChild:_userInterface];
+        
         [self initActions];
+        
+        _velocity = CGPointZero;
+        _idleTime = 0;
+        _idle = NO;
+        _midAir = NO;
+        
+        //Debuging
+        _debug = 0;
+        _debugArray = @[@"walk",
+                        @"climb",
+                        @"pushObject",
+                        @"idle",
+                        @"fall",
+                        @"swordSwing",
+                        @"pushObject",
+                        @"struck",
+                        @"idle2",
+                        @"idle3",
+                        @"directPunch",
+                        @"pushUp",
+                        @"hang"];
+        _debugKnight = @[@"walkLeft",
+                         @"walkRight",
+                         @"slashLeft",
+                         @"slashRight"];
     }
-    _velocity = CGPointZero;
-    _idleTime = 0;
-    _idle = NO;
-    _debug = 0;
-    _debugArray = @[@"walk",
-                    @"climb",
-                    @"pushObject",
-                    @"idle",
-                    @"fall",
-                    @"swordSwing",
-                    @"pushObject",
-                    @"struck",
-                    @"idle2",
-                    @"idle3",
-                    @"directPunch",
-                    @"pushUp",
-                    @"hang"];
-    _debugKnight = @[@"walkLeft",
-                     @"walkRight",
-                     @"slashLeft",
-                     @"slashRight"];
     
     return self;
 }
@@ -108,45 +130,56 @@
         
     }
     [self moveSprite:_baelog velocity:_velocity];
+    [self dummyCamera];
 }
 
 #pragma mark Initializers
 
 -(void)initBackground
 {
-    
-    _background = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:self.size];
+    _bgLayer = [SKNode node];
+    [self addChild:_bgLayer];
+    _background = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:self.size];
     _background.anchorPoint = CGPointZero;
-    _background.position = CGPointMake(0, 0);
+    _background.position = CGPointZero;
     
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    self.physicsWorld.contactDelegate = self;
+    
     
     [_bgLayer addChild:_background];
 }
 
 -(void)initEntities
 {
-    _baelog = [[Baelog alloc] initWithPosition:CGPointMake(self.size.width/2, 70)];
-    _baelog.rightDirection = YES;
-    _knight = [[Knight alloc] initWithPosition:CGPointMake(self.size.width/2 + 250, 70)];
+    _playerLayer = [SKNode node];
+    [self addChild:_playerLayer];
     
-    _baelog.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_baelog.size];
-    _knight.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_knight.size];
+    _baelog = [[Baelog alloc] initWithPosition:CGPointMake(self.size.width/2, 450)];
+    _baelog.rightDirection = YES;
+    _knight = [[Knight alloc] initWithPosition:CGPointMake(self.size.width/2 + 150, 450)];
+    
+    CGSize baelogPB = CGSizeMake(_baelog.size.width - 12, _baelog.size.height - 7);
+    _baelog.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:baelogPB];
+    _baelog.physicsBody.categoryBitMask = VMPhysicsCategoryBaelog;
+    _baelog.physicsBody.collisionBitMask = VMPhysicsCategoryTerrain;
+    _baelog.physicsBody.contactTestBitMask = VMPhysicsCategoryTerrain;
+    _baelog.physicsBody.restitution = 0.0;
+    
+    CGSize knightPB = CGSizeMake(_knight.size.width - 25, _knight.size.height - 8);
+    _knight.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:knightPB];
+    _knight.physicsBody.categoryBitMask = VMPhysicsCategoryKnight;
+    _knight.physicsBody.collisionBitMask = VMPhysicsCategoryTerrain;
     
     /*
      *debuging frames
      */
     
-    [_baelog attachDebugRectWithSize:_baelog.size];
-    [_knight attachDebugRectWithSize:_knight.size];
+    [_baelog attachDebugRectWithSize:baelogPB];
+    [_knight attachDebugRectWithSize:knightPB];
     
-    _baelog.yScale = 3.0;
-    _baelog.xScale = 3.0;
-    _knight.yScale = 2.0;
-    _knight.xScale = 2.0;
-    
-    
-    
+    [_baelog setScale:3.0];
+    [_knight setScale:2.0];
     
     [_playerLayer addChild:_baelog];
     [_playerLayer addChild:_knight];
@@ -154,6 +187,98 @@
 
 -(void)initTerrain
 {
+    _currentSlice = 0;
+    _level = [SKSpriteNode spriteNodeWithImageNamed:@"level1-0-0.png"];
+    _level.name = @"bg";
+    _level.anchorPoint = CGPointZero;
+    _level.position = CGPointZero;
+    
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"level1_collision_data" ofType:@"plist"];
+    NSDictionary *collisionDataDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    
+    NSArray *collisionData = collisionDataDictionary[@"path_0"];
+    CGMutablePathRef collisionPath = CGPathCreateMutable();
+    
+    for (NSArray *objects in collisionData) {
+        for (int i = 0; i < objects.count; i++) {
+            NSString *path = objects[i];
+            CGPoint point = CGPointFromString(path);
+            if (i == 0) {
+                CGPathMoveToPoint(collisionPath, nil, point.x, point.y);
+            }
+            else
+            {
+                CGPathAddLineToPoint(collisionPath, nil, point.x, point.y);
+            }
+        }
+    }
+    
+    CGPathCloseSubpath(collisionPath);
+    
+    _level.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromPath:collisionPath];
+    _level.physicsBody.dynamic = NO;
+    _level.physicsBody.categoryBitMask = VMPhysicsCategoryTerrain;
+    _level.physicsBody.collisionBitMask = VMPhysicsCategoryBaelog;
+    _level.physicsBody.contactTestBitMask = VMPhysicsCategoryBaelog;
+    _level.physicsBody.restitution = 0.0;
+    [_level attachDebugFrameFromPath:collisionPath];
+    CGPathRelease(collisionPath);
+    
+    [_bgLayer addChild:_level];
+    
+    SKSpriteNode *levelContinued = [SKSpriteNode spriteNodeWithImageNamed:@"level1-0-1.png"];
+    levelContinued.name = @"bg";
+    levelContinued.anchorPoint = CGPointZero;
+    levelContinued.position = CGPointMake(_level.size.width, 0);
+    
+    collisionData = collisionDataDictionary[@"path_1"];
+    collisionPath = CGPathCreateMutable();
+    
+    for (NSArray *objects in collisionData) {
+        for (int i = 0; i < objects.count; i++) {
+            NSString *path = objects[i];
+            CGPoint point = CGPointFromString(path);
+            if (i == 0) {
+                CGPathMoveToPoint(collisionPath, nil, point.x, point.y);
+            }
+            else
+            {
+                CGPathAddLineToPoint(collisionPath, nil, point.x, point.y);
+            }
+        }
+    }
+    
+    CGPathCloseSubpath(collisionPath);
+    
+    levelContinued.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromPath:collisionPath];
+    levelContinued.physicsBody.dynamic = NO;
+    levelContinued.physicsBody.categoryBitMask = VMPhysicsCategoryTerrain;
+    levelContinued.physicsBody.collisionBitMask = VMPhysicsCategoryBaelog;
+    levelContinued.physicsBody.contactTestBitMask = VMPhysicsCategoryBaelog;
+    levelContinued.physicsBody.restitution = 0.0;
+    [levelContinued attachDebugFrameFromPath:collisionPath];
+    CGPathRelease(collisionPath);
+    
+    [_bgLayer addChild:levelContinued];
+}
+
+-(void)initCameraFrame
+{
+    _cameraFrame = [SKNode node];
+    [self addChild:_cameraFrame];
+    
+    CGSize frame = CGSizeMake(self.size.width - 512, _baelog.size.height);
+    SKSpriteNode *cFrame = [[SKSpriteNode alloc] initWithColor:[SKColor clearColor] size:frame];
+    cFrame.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:cFrame.frame];
+    cFrame.physicsBody.dynamic = NO;
+    cFrame.physicsBody.categoryBitMask = VMPhysicsCategoryCamera;
+    cFrame.physicsBody.collisionBitMask = 0;
+    cFrame.physicsBody.contactTestBitMask = VMPhysicsCategoryBaelog;
+    cFrame.anchorPoint = CGPointMake(0.5, 0);
+    cFrame.position = CGPointMake(_baelog.position.x + _baelog.size.width/2, _baelog.position.y);
+    [cFrame attachDebugRectWithSize:frame];
+    [_cameraFrame addChild:cFrame];
+    
     
 }
 
@@ -187,6 +312,9 @@
 
 -(void)initUserInterface
 {
+    _userInterface = [SKNode node];
+    [self addChild:_userInterface];
+    
     _up = [SKSpriteNode spriteNodeWithImageNamed:@"up.png"];
     _up.name = @"up";
     _up.anchorPoint = CGPointZero;
@@ -231,9 +359,9 @@
     [_userInterface addChild:_right];
     [_userInterface addChild:_jump];
     
-    //[_userInterface runAction:[SKAction scaleTo:0.7 duration:0]];
-    
 }
+
+#pragma mark Animation
 
 -(SKAction *)animateBaelogWithKey:(NSString *)key
 {
@@ -248,6 +376,8 @@
     action = [SKAction animateWithTextures:[_knight animationTexturesWithKey:key] timePerFrame:0.1];
     return action;
 }
+
+#pragma mark Touch events
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -269,7 +399,7 @@
             _velocity = CGPointMake(self.size.width/3, 0);
             _baelog.rightDirection = YES;
             [self moveBaelogRight];
-            break;
+            continue;
         }
         if ([node.name isEqualToString:@"left"]) {
             //self moveSprite:_baelog velocity:(CGPoint)
@@ -278,10 +408,10 @@
             _velocity = CGPointMake(-self.size.width/3, 0);
             _baelog.rightDirection = NO;
             [self moveBaelogLeft];
-            break;
+            continue;
         }
-        if ([node.name isEqualToString:@"jump"]) {
-            [_baelog.physicsBody applyImpulse:CGVectorMake(0, 30)];
+        if ([node.name isEqualToString:@"jump"] && !_midAir) {
+            [self jumpBaelog];
         }
     }
 }
@@ -345,20 +475,7 @@
     
 }
 
--(void)dummyAnimationDebug
-{
-    [_baelog removeActionForKey:_debugArray[_debug]];
-    [_baelog runAction:[SKAction repeatActionForever:[self animateBaelogWithKey:_debugArray[_debug]]] withKey:_debugArray[_debug]];
-    if (_debug < 4) {
-        [_knight removeActionForKey:_debugKnight[_debug]];
-        [_knight runAction:[SKAction repeatActionForever:[self animateKnightWithKey:_debugKnight[_debug]]] withKey:_debugKnight[_debug]];
-    }
-    _debug++;
-    if (_debug > 12) {
-        _debug = 0;
-    }
-    
-}
+#pragma mark Movement
 
 - (void)moveSprite:(SKSpriteNode *)sprite
           velocity:(CGPoint)velocity
@@ -379,6 +496,9 @@
 -(void)moveBaelogRight
 {
     _velocity = CGPointMake(self.size.width/3, 0);
+    if (_midAir) {
+        return;
+    }
     if (![_baelog actionForKey:@"walkRightAnimation"]) {
         [_baelog removeActionForKey:@"idleAnimation"];
         [_baelog removeActionForKey:@"idleLeftAnimation"];
@@ -391,6 +511,9 @@
 -(void)moveBaelogLeft
 {
     _velocity = CGPointMake(-self.size.width/3, 0);
+    if (_midAir) {
+        return;
+    }
     if (![_baelog actionForKey:@"walkLeftAnimation"]) {
         [_baelog removeActionForKey:@"idleAnimation"];
         [_baelog removeActionForKey:@"idleLeftAnimation"];
@@ -403,8 +526,10 @@
 -(void)stopBaelog
 {
     _velocity = CGPointZero;
-    [_baelog removeActionForKey:@"walkRightAnimation"];
-    [_baelog removeActionForKey:@"walkLeftAnimation"];
+    if (_midAir) {
+        return;
+    }
+    [_baelog removeAllActions];
     if (_baelog.rightDirection) {
         [_baelog runAction:[SKAction animateWithTextures:[_baelog animationTexturesWithKey:@"frame"] timePerFrame:0]];
     }
@@ -412,6 +537,99 @@
     {
         [_baelog runAction:[SKAction animateWithTextures:[_baelog animationTexturesWithKey:@"frameLeft"] timePerFrame:0]];
     }
+}
+
+-(void)jumpBaelog
+{
+    _midAir = YES;
+    _idle = NO;
+    _idleTime = 0;
+    [_baelog.physicsBody applyImpulse:CGVectorMake(0, 20)];
+    [_baelog removeAllActions];
+    if (_baelog.rightDirection) {
+        [_baelog runAction:[self animateBaelogWithKey:@"jump"] withKey:@"jumpAnimation"];
+    }
+    else
+    {
+        [_baelog runAction:[self animateBaelogWithKey:@"jumpLeft"] withKey:@"jumpLeftAnimation"];
+    }
+    
+}
+
+#pragma mark Camera
+
+-(void)cameraMove
+{
+    CGPoint scrollVelocity = CGPointMake(self.size.width/3, 0);
+    [self moveSprite:_background velocity:scrollVelocity];
+}
+
+-(void)terrainPreparation
+{
+    [_bgLayer enumerateChildNodesWithName:@"bg" usingBlock:^(SKNode *node, BOOL *stop) {
+        SKSpriteNode *bg = (SKSpriteNode *)node;
+        CGPoint bgScreenPos = [_bgLayer convertPoint:bg.position toNode:self];
+        if (bgScreenPos.x <= -bg.size.width) {
+            
+        }
+    }];
+}
+
+#pragma mark Physics & Collisions
+
+-(BOOL)collidesWithSurface:(SKSpriteNode *)sprite
+{
+    
+    return NO;
+}
+
+-(void)didBeginContact:(SKPhysicsContact *)contact
+{
+    uint32_t collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask);
+    if (collision == (VMPhysicsCategoryTerrain | VMPhysicsCategoryBaelog)) {
+        _midAir = NO;
+        if (_baelog.rightDirection) {
+            [_baelog runAction:[SKAction animateWithTextures:[_baelog animationTexturesWithKey:@"frame"] timePerFrame:0]];
+        }
+        else
+        {
+            [_baelog runAction:[SKAction animateWithTextures:[_baelog animationTexturesWithKey:@"frameLeft"] timePerFrame:0]];
+        }
+    }
+    if (collision == (VMPhysicsCategoryBaelog | VMPhysicsCategoryCamera)) {
+        //[self cameraMove];
+    }
+}
+
+#pragma mark Debuging
+
+-(void)dummyAnimationDebug
+{
+    [_baelog removeActionForKey:_debugArray[_debug]];
+    [_baelog runAction:[SKAction repeatActionForever:[self animateBaelogWithKey:_debugArray[_debug]]] withKey:_debugArray[_debug]];
+    if (_debug < 4) {
+        [_knight removeActionForKey:_debugKnight[_debug]];
+        [_knight runAction:[SKAction repeatActionForever:[self animateKnightWithKey:_debugKnight[_debug]]] withKey:_debugKnight[_debug]];
+    }
+    _debug++;
+    if (_debug > 12) {
+        _debug = 0;
+    }
+    
+}
+
+-(void)dummyCamera
+{
+    CGPoint bgVelocity = CGPointMake(-50, 0);
+    CGPoint amtToMove = CGPointMultiplyScalar(bgVelocity, _dt);
+    _bgLayer.position = CGPointAdd(_bgLayer.position, amtToMove);
+    [_bgLayer enumerateChildNodesWithName:@"bg" usingBlock:^(SKNode *node, BOOL *stop) {
+        SKSpriteNode *bg = (SKSpriteNode *)node;
+        CGPoint bgScreenPos = [_bgLayer convertPoint:bg.position toNode:self];
+        if (bgScreenPos.x <= -bg.size.width) {
+            bg.position = CGPointMake(bg.position.x + bg.size.width * 2, bg.position.y);
+        }
+    }];
 }
 
 @end

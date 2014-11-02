@@ -11,6 +11,7 @@
 @implementation Baelog
 {
     NSArray *_walk;
+    NSArray *_jump;
     NSArray *_climb;
     NSArray *_idle;
     NSArray *_fall;
@@ -25,6 +26,7 @@
     NSArray *_singleFrame;
     
     NSArray *_walkL;
+    NSArray *_jumpL;
     NSArray *_climbL;
     NSArray *_idleL;
     NSArray *_fallL;
@@ -66,6 +68,8 @@
         return [self walkAnimation];
     } else if ([key isEqualToString:@"climb"]) {
         return [self climbAnimation];
+    } else if ([key isEqualToString:@"jump"]) {
+        return [self jumpAnimation];
     } else if ([key isEqualToString:@"idle"]) {
         return [self idleAnimation];
     } else if ([key isEqualToString:@"fall"]) {
@@ -92,6 +96,8 @@
         return [self walkAnimationLeft];
     } else if ([key isEqualToString:@"climbLeft"]) {
         return [self climbAnimationLeft];
+    } else if ([key isEqualToString:@"jumpLeft"]) {
+        return [self jumpAnimationLeft];
     } else if ([key isEqualToString:@"idleLeft"]) {
         return [self idleAnimationLeft];
     } else if ([key isEqualToString:@"fallLeft"]) {
@@ -150,6 +156,21 @@
     return _climb;
 }
 
+-(NSArray *)jumpAnimation
+{
+    if (_jump) {
+        return _jump;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    NSString *textureName = @"Baelog11-1";
+    SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+    [textures addObject:texture];
+    textureName = @"Baelog11-2";
+    texture = [SKTexture textureWithImageNamed:textureName];
+    [textures addObject:texture];
+    _jump = [NSArray arrayWithArray:textures];
+    return _jump;
+}
 
 -(NSArray *)idleAnimation
 {
@@ -355,6 +376,22 @@
     }
     _climbL = [NSArray arrayWithArray:textures];
     return _climbL;
+}
+
+-(NSArray *)jumpAnimationLeft
+{
+    if (_jumpL) {
+        return _jumpL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    NSString *textureName = @"LBaelog11-6";
+    SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+    [textures addObject:texture];
+    textureName = @"LBaelog11-5";
+    texture = [SKTexture textureWithImageNamed:textureName];
+    [textures addObject:texture];
+    _jumpL = [NSArray arrayWithArray:textures];
+    return _jumpL;
 }
 
 -(NSArray *)idleAnimationLeft
