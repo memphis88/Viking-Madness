@@ -21,6 +21,42 @@
 			<string>{191, 319}</string>
 			<string>{191, 0}</string>
 		</array>
+		<array>
+			<string>{272, 319}</string>
+			<string>{368, 319}</string>
+			<string>{368, 303}</string>
+			<string>{272, 303}</string>
+		</array>
+		<array>
+			<string>{479, 319}</string>
+			<string>{559, 319}</string>
+			<string>{559, 303}</string>
+			<string>{479, 303}</string>
+		</array>
+		<array>
+			<string>{639, 351}</string>
+			<string>{655, 351}</string>
+			<string>{655, 335}</string>
+			<string>{639, 335}</string>
+		</array>
+		<array>
+			<string>{703, 383}</string>
+			<string>{719, 383}</string>
+			<string>{719, 367}</string>
+			<string>{703, 367}</string>
+		</array>
+		<array>
+			<string>{767, 415}</string>
+			<string>{783, 415}</string>
+			<string>{783, 399}</string>
+			<string>{767, 399}</string>
+		</array>
+		<array>
+			<string>{831, 447}</string>
+			<string>{1023, 447}</string>
+			<string>{1023, 431}</string>
+			<string>{831, 431}</string>
+		</array>
 	</array>
 </dict>
 </plist>
