@@ -23,6 +23,24 @@ typedef NS_OPTIONS(uint32_t, VMPhysicsCategory)
     VMPhysicsCategoryBorderRight= 1 << 7,
 };
 
+static inline CGVector CGVectorOppositeVector(const CGVector vect)
+{
+    return CGVectorMake(vect.dx * (-1), vect.dy * (-1));
+}
+
+static inline CGVector CGZeroVector()
+{
+    return CGVectorMake(0, 0);
+}
+
+static inline BOOL CGVectorCompare(const CGVector a, const CGVector b)
+{
+    if (a.dx == b.dy && a.dy == b.dy) {
+        return YES;
+    }
+    return NO;
+}
+
 static const float BAELOG_MOVEMENT_SPEED = 1024/4;
 
 @interface FirstLevel () <SKPhysicsContactDelegate>
@@ -68,6 +86,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/4;
     BOOL _moves;
     CGPoint _velocity;
     int _currentSlice;
+    CGPoint _camera;
 }
 
 #pragma mark Overriden methods
@@ -80,7 +99,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/4;
         [self initBackground];
         [self initTerrain];
         [self initEntities];
-        [self initCameraFrame];
+        //[self initCameraFrame];
         [self initUserInterface];
         [self initActions];
         
@@ -129,12 +148,22 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/4;
     [self determineMidAir];
     [self fallBaelog];
     [self idleBaelog];
+    [self makeCamerVector];
     [self moveSprite:_baelog velocity:_velocity];
     //[self dummyCamera];
 }
 
 -(void)didSimulatePhysics
 {
+    if (CGPointEqualToPoint(_camera, CGPointZero)) {
+        //NSLog(@"zero");
+    }
+    else
+    {
+        //NSLog(@"x:%f y:%f", _camera.x, _camera.y);
+    }
+    [self moveCamera];
+    return;
     [self.physicsWorld enumerateBodiesAlongRayStart:CGPointMake(912, self.size.height)
                                                 end:CGPointMake(912, 0)
                                          usingBlock:^(SKPhysicsBody *body, CGPoint point, CGVector normal, BOOL *stop) {
@@ -199,7 +228,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/4;
 -(void)initEntities
 {
     _playerLayer = [SKNode node];
-    [self addChild:_playerLayer];
+    [_bgLayer addChild:_playerLayer];
     
     _baelog = [[Baelog alloc] initWithPosition:CGPointMake(self.size.width/2, 450)];
     _baelog.rightDirection = YES;
@@ -211,6 +240,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/4;
     _baelog.physicsBody.collisionBitMask = VMPhysicsCategoryTerrain | VMPhysicsCategoryCamera;
     _baelog.physicsBody.contactTestBitMask = VMPhysicsCategoryTerrain;
     _baelog.physicsBody.restitution = 0.0;
+    _baelog.physicsBody.friction = 1.0;
     _baelog.physicsBody.allowsRotation = NO;
     _baelog.physicsBody.angularVelocity = 0;
     
@@ -634,6 +664,15 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/4;
     // 2
     sprite.position = CGPointAdd(sprite.position, amountToMove);
     
+    
+    
+    //testing
+    /*
+    CGFloat rate = .05;
+    CGVector relativeVelocity = CGVectorMake(200-sprite.physicsBody.velocity.dx, 200-sprite.physicsBody.velocity.dy);
+    sprite.physicsBody.velocity=CGVectorMake(sprite.physicsBody.velocity.dx+relativeVelocity.dx*rate, sprite.physicsBody.velocity.dy+relativeVelocity.dy*rate);
+     */
+    
 }
 
 -(void)moveBaelogRight
@@ -713,6 +752,37 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/4;
 
 #pragma mark Camera
 
+-(void)makeCamerVector
+{
+    //NSLog(@"baelog: %f, %f", _baelog.position.x, _baelog.position.y);
+    CGPoint relativePoint = [_playerLayer convertPoint:_baelog.position toNode:self];
+    _camera = CGPointMake(relativePoint.x - self.size.width/2, relativePoint.y - self.size.height/2);
+}
+
+-(void)moveCamera
+{
+    if (!CGPointEqualToPoint(_camera, CGPointZero)) {
+        //__block CGPoint velocityVector = CGPointMultiplyScalar(_camera, -1);
+        [self runAction:[SKAction sequence:@[[SKAction waitForDuration:0.2],
+                                             [SKAction customActionWithDuration:0 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
+            CGPoint velocityVector = CGPointMultiplyScalar(_camera, -1);
+            if (_bgLayer.position.y > 0 && velocityVector.y > 0)
+            {
+                velocityVector = CGPointMake(velocityVector.x, 0);
+            }
+            if (_bgLayer.position.y < -768 &&
+                velocityVector.y < 0)
+            {
+                velocityVector = CGPointMake(velocityVector.x, 0);
+            }
+            if (_bgLayer.position.x > 0 && velocityVector.x > 0) {
+                velocityVector = CGPointMake(0, velocityVector.y);
+            }
+            [self moveSprite:_bgLayer velocity:velocityVector];
+        }]]]];
+    }
+}
+
 -(void)cameraMovedTowards:(NSString *)direction
 {
     if (_baelog.physicsBody.resting) {
@@ -727,10 +797,10 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/4;
             [self moveSprite:_baelog velocity:CGPointMake(BAELOG_MOVEMENT_SPEED, 0)];
         }
         else if ([direction isEqualToString:@"up"]) {
-            
+            [self moveSprite:_baelog velocity:CGPointMake(0, -BAELOG_MOVEMENT_SPEED)];
         }
         else if ([direction isEqualToString:@"down"]) {
-            
+            [self moveSprite:_baelog velocity:CGPointMake(0, BAELOG_MOVEMENT_SPEED)];
         }
     }
 }
