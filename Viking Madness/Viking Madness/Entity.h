@@ -18,5 +18,6 @@
 -(instancetype)initWithPosition:(CGPoint)position;
 -(void)update:(CFTimeInterval)delta;
 -(NSArray *)animationTexturesWithKey:(NSString *)key;
+-(void)didEvaluateActions;
 
 @end

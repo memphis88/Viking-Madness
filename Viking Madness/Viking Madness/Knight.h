@@ -10,4 +10,8 @@
 
 @interface Knight : Entity
 
+@property (nonatomic, copy) NSString *patrolWidth;
+
+-(void)startPatrol;
+
 @end

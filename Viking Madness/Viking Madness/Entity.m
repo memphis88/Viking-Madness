@@ -38,4 +38,9 @@
     return nil;
 }
 
+-(void)didEvaluateActions
+{
+    //Overriden by subs
+}
+
 @end

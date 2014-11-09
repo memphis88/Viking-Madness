@@ -8,20 +8,74 @@
 
 #import "Knight.h"
 
+static const CGFloat KNIGHT_WALK_MOVEMENT_SPEED = 32;
+static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 2;
+
 @implementation Knight
 {
     NSArray *_walkLeft;
     NSArray *_walkRight;
     NSArray *_slashLeft;
     NSArray *_slashRight;
+    
+    BOOL _rightDirection;
+    BOOL _changing;
+    
+    CGPoint _velocity;
+    CGPoint _startPos;
+    
+    NSTimeInterval _lastUpdateTime;
+    NSTimeInterval _dt;
+    
+    CGFloat _lastPosition;
+    CGFloat _dx;
+    
+    SKAction *_walkRightAnimation;
+    SKAction *_walkLeftAnimation;
+    
+    CGFloat _endPosition;
 }
 
 -(instancetype)initWithPosition:(CGPoint)position
 {
-    if (self = [super initWithPosition:position]) {
+    if (self = [super initWithPosition:CGPointMake(position.x + 25, position.y)]) {
         self.name = @"knight";
+        _startPos = position;
+        _rightDirection = NO;
+        _changing = NO;
+        _velocity = CGPointZero;
+        [self initActions];
     }
     return self;
+}
+
+-(void)setPatrolWidth:(NSString *)patrolWidth
+{
+    _patrolWidth = patrolWidth;
+    _endPosition = _startPos.x + [_patrolWidth floatValue];
+}
+
+-(void)update:(CFTimeInterval)delta
+{
+    _dt = delta;
+    if (_lastPosition) {
+        _dx = self.position.x - _lastPosition;
+    }
+    else
+    {
+        _dx = 0;
+    }
+    _lastPosition = self.position.x;
+    
+    //NSLog(@"dt:%f",_dt);
+    [self moveSprite:self velocity:_velocity];
+}
+
+-(void)didEvaluateActions
+{
+    if ([self reachedEndOfPatrol] && !_changing) {
+        [self changeDirectionOfPatrol];
+    }
 }
 
 +(SKTexture *)generateTexture
@@ -29,9 +83,9 @@
     static SKTexture *texture = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        SKSpriteNode *baelog = [SKSpriteNode spriteNodeWithImageNamed:@"Knight_Walk_0"];
+        SKSpriteNode *knight = [SKSpriteNode spriteNodeWithImageNamed:@"Knight_Walk_0"];
         SKView *textureView = [SKView new];
-        texture = [textureView textureFromNode:baelog];
+        texture = [textureView textureFromNode:knight];
         texture.filteringMode = SKTextureFilteringNearest;
     });
     return texture;
@@ -53,6 +107,16 @@
     }
     return textures;
 }
+
+#pragma mark Initializers
+
+-(void)initActions
+{
+    _walkLeftAnimation = [SKAction animateWithTextures:[self animationTexturesWithKey:@"walkLeft"] timePerFrame:0.2];
+    _walkRightAnimation = [SKAction animateWithTextures:[self animationTexturesWithKey:@"walkRight"] timePerFrame:0.2];
+}
+
+#pragma mark Animation
 
 -(NSArray *)walkLeftAnimation
 {
@@ -114,5 +178,61 @@
     _slashRight = [NSArray arrayWithArray:textures];
     return _slashRight;
 }
+
+#pragma mark Behavior
+
+-(void)startPatrol
+{
+    _velocity = CGPointMake(KNIGHT_WALK_MOVEMENT_SPEED, 0);
+    [self runAction:[SKAction repeatActionForever:_walkRightAnimation] withKey:@"walkRight"];
+}
+
+#pragma mark Movement
+
+- (void)moveSprite:(SKNode *)sprite
+          velocity:(CGPoint)velocity
+{
+    CGPoint amountToMove = CGPointMultiplyScalar(velocity, _dt);
+    sprite.position = CGPointAdd(sprite.position, amountToMove);
+    
+}
+
+-(BOOL)reachedEndOfPatrol
+{
+    if (self.position.x < _startPos.x) {
+        //NSLog(@"reached left");
+        return YES;
+    }
+    if (self.position.x > _endPosition - self.size.width/2) {
+        //NSLog(@"reached right");
+        return YES;
+    }
+    return NO;
+}
+
+-(void)changeDirectionOfPatrol
+{
+    _changing = YES;
+    _rightDirection = !_rightDirection;
+    if (_rightDirection) {
+        if (![self actionForKey:@"walkRight"]) {
+            [self removeAllActions];
+            _velocity = CGPointMake(KNIGHT_WALK_MOVEMENT_SPEED, 0);
+            [self runAction:[SKAction repeatActionForever:_walkRightAnimation] withKey:@"walkRight"];
+        }
+    }
+    else
+    {
+        if (![self actionForKey:@"walkLeft"]) {
+            [self removeAllActions];
+            _velocity = CGPointMake(-KNIGHT_WALK_MOVEMENT_SPEED, 0);
+            [self runAction:[SKAction repeatActionForever:_walkLeftAnimation] withKey:@"walkLeft"];
+        }
+    }
+    _changing = NO;
+}
+
+
+#pragma mark Combat
 
 @end

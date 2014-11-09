@@ -68,6 +68,8 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     SKSpriteNode *_left;
     SKSpriteNode *_right;
     SKSpriteNode *_jump;
+    SKSpriteNode *_punch;
+    SKSpriteNode *_swing;
     
     SKAction *_walkRightAnimation;
     SKAction *_walkLeftAnimation;
@@ -75,6 +77,10 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     SKAction *_idleLeftAnimation;
     SKAction *_fallAnimation;
     SKAction *_fallLeftAnimation;
+    SKAction *_punchAnimation;
+    SKAction *_punchLeftAnimation;
+    SKAction *_swingAnimation;
+    SKAction *_swingLeftAnimation;
     
     BOOL _idle;
     BOOL _midAir;
@@ -140,6 +146,11 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     _lastUpdateTime = currentTime;
     _idleTime += _dt;
     
+    [_playerLayer enumerateChildNodesWithName:@"knight" usingBlock:^(SKNode *node, BOOL *stop) {
+        Knight *knight = (Knight *)node;
+        [knight update:_dt];
+    }];
+    
     [self determineMidAir];
     [self fallBaelog];
     [self idleBaelog];
@@ -150,6 +161,15 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
 -(void)didSimulatePhysics
 {
     [self moveCamera];
+    [_playerLayer enumerateChildNodesWithName:@"knight" usingBlock:^(SKNode *node, BOOL *stop) {
+        Knight *knight = (Knight *)node;
+        [knight didEvaluateActions];
+    }];
+}
+
+-(void)didEvaluateActions
+{
+    
 }
 
 #pragma mark Initializers
@@ -219,9 +239,9 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     _playerLayer = [SKNode node];
     [_bgLayer addChild:_playerLayer];
     
-    _baelog = [[Baelog alloc] initWithPosition:CGPointMake(self.size.width/4, 450)];
+    _baelog = [[Baelog alloc] initWithPosition:CGPointMake(self.size.width/4, 250)];
     _baelog.rightDirection = YES;
-    _knight = [[Knight alloc] initWithPosition:CGPointMake(self.size.width/4 + 150, 450)];
+    _knight = [[Knight alloc] initWithPosition:CGPointMake(self.size.width/4 + 150, 250)];
     
     CGSize baelogPB = CGSizeMake(_baelog.size.width - 12, _baelog.size.height - 7);
     _baelog.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:baelogPB];
@@ -233,7 +253,27 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     _baelog.physicsBody.allowsRotation = NO;
     _baelog.physicsBody.angularVelocity = 0;
     
+    NSArray *allObjects = _terrainMap.objectGroups;
     CGSize knightPB = CGSizeMake(_knight.size.width - 25, _knight.size.height - 8);
+    for (TMXObjectGroup *objLayer in allObjects) {
+        NSArray *enemySpawnObjects = [objLayer objectsNamed:@"enemySpawn"];
+        for (NSDictionary *enemySpawn in enemySpawnObjects) {
+            Knight *knight = [[Knight alloc] initWithPosition:CGPointMake([[enemySpawn objectForKey:@"x"] floatValue] + knightPB.width/2,
+                                                                          [[enemySpawn objectForKey:@"y"] floatValue] + knightPB.height/2)];
+            knight.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:knightPB];
+            knight.physicsBody.categoryBitMask = VMPhysicsCategoryKnight;
+            knight.physicsBody.collisionBitMask = VMPhysicsCategoryTerrain;
+            knight.physicsBody.allowsRotation = NO;
+            knight.physicsBody.angularVelocity = 0;
+            
+            knight.patrolWidth = [enemySpawn objectForKey:@"width"];
+            [knight attachDebugRectWithSize:knightPB];
+            [knight setScale:0.8];
+            [_playerLayer addChild:knight];
+            [knight startPatrol];
+        }
+    }
+    
     _knight.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:knightPB];
     _knight.physicsBody.categoryBitMask = VMPhysicsCategoryKnight;
     _knight.physicsBody.collisionBitMask = VMPhysicsCategoryTerrain;
@@ -247,11 +287,11 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     [_baelog attachDebugRectWithSize:baelogPB];
     [_knight attachDebugRectWithSize:knightPB];
     
-    [_baelog setScale:1.5];
-    [_knight setScale:1.0];
+    [_baelog setScale:1.2];
+    [_knight setScale:0.8];
     
     [_playerLayer addChild:_baelog];
-    [_playerLayer addChild:_knight];
+    //[_playerLayer addChild:_knight];
 }
 
 -(void)initActions
@@ -282,6 +322,10 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     _walkLeftAnimation = [self animateBaelogWithKey:@"walkLeft"];
     _fallAnimation = [self animateBaelogWithKey:@"fall"];
     _fallLeftAnimation = [self animateBaelogWithKey:@"fallLeft"];
+    _punchAnimation = [self animateBaelogWithKey:@"directPunch"];
+    _punchLeftAnimation = [self animateBaelogWithKey:@"directPunchLeft"];
+    _swingAnimation = [self animateBaelogWithKey:@"swordSwing"];
+    _swingLeftAnimation = [self animateBaelogWithKey:@"swordSwingLeft"];
 }
 
 -(void)initUserInterface
@@ -326,12 +370,26 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     _jump.xScale = 0.4;
     _jump.position = CGPointMake(self.size.width - _jump.frame.size.width/2, _jump.frame.size.height/2);
     
+    _punch = [SKSpriteNode spriteNodeWithImageNamed:@"circle_grey.png"];
+    _punch.name = @"punch";
+    _punch.yScale = 0.4;
+    _punch.xScale = 0.4;
+    _punch.position = CGPointMake(self.size.width - 1.5 * _jump.frame.size.width, _jump.frame.size.height/2);
+    
+    _swing = [SKSpriteNode spriteNodeWithImageNamed:@"circle_grey.png"];
+    _swing.name = @"swing";
+    _swing.yScale = 0.4;
+    _swing.xScale = 0.4;
+    _swing.position = CGPointMake(self.size.width - _jump.frame.size.width/2, 1.5 * _jump.frame.size.height);
+    
     
     [_userInterface addChild:_up];
     [_userInterface addChild:_down];
     [_userInterface addChild:_left];
     [_userInterface addChild:_right];
     [_userInterface addChild:_jump];
+    [_userInterface addChild:_punch];
+    [_userInterface addChild:_swing];
     
 }
 
@@ -370,10 +428,10 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
 {
     if (_midAir) {
         if (_baelog.physicsBody.velocity.dy < 0) {
-            if (![_baelog actionForKey:@"fallAnimation"] && ![_baelog actionForKey:@"fallLeftAnimation"]) {
+            if (![_baelog actionForKey:@"fallRightAnimation"] && ![_baelog actionForKey:@"fallLeftAnimation"]) {
                 [_baelog removeAllActions];
                 if (_baelog.rightDirection) {
-                    [_baelog runAction:[SKAction repeatActionForever:_fallAnimation] withKey:@"fallAnimation"];
+                    [_baelog runAction:[SKAction repeatActionForever:_fallAnimation] withKey:@"fallRightAnimation"];
                 }
                 else
                 {
@@ -384,23 +442,65 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     }
 }
 
+-(void)punchBaelog
+{
+    if (!_midAir) {
+        if (_moves) {
+            [self stopBaelog];
+        }
+        if (![_baelog actionForKey:@"punchLeft"] && ![_baelog actionForKey:@"punchRight"]) {
+            [_baelog removeAllActions];
+            if (_baelog.rightDirection) {
+                [_baelog runAction:[SKAction sequence:@[_punchAnimation,
+                                                        [SKAction runBlock:^{
+                    [self stopBaelog];
+                }]]] withKey:@"punchRight"];
+            }
+            else
+            {
+                [_baelog runAction:[SKAction sequence:@[_punchLeftAnimation,
+                                                        [SKAction runBlock:^{
+                    [self stopBaelog];
+                }]]] withKey:@"punchLeft"];
+            }
+        }
+    }
+}
+
+-(void)swingBaelog
+{
+    if (!_midAir) {
+        if (_moves) {
+            [self stopBaelog];
+        }
+        if (![_baelog actionForKey:@"swingLeft"] && ![_baelog actionForKey:@"swingRight"]) {
+            [_baelog removeAllActions];
+            if (_baelog.rightDirection) {
+                [_baelog runAction:[SKAction sequence:@[_swingAnimation,
+                                                        [SKAction runBlock:^{
+                    [self stopBaelog];
+                }]]] withKey:@"swingRight"];
+            }
+            else
+            {
+                [_baelog runAction:[SKAction sequence:@[_swingLeftAnimation,
+                                                        [SKAction runBlock:^{
+                    [self stopBaelog];
+                }]]] withKey:@"swingLeft"];
+            }
+        }
+    }
+}
+
 #pragma mark Touch events
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    //UITouch *touch = [touches anyObject];
-    //CGPoint touchLocation = [touch locationInNode:_bgLayer];
-    //[self dummyAnimationDebug];
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
     NSArray *nodes = [self nodesAtPoint:location];
     for (SKNode *node in nodes) {
-        //go through nodes, get the zPosition if you want
-        //int nodePos = node.zPosition;
-        
-        //or check the node against your nodes
         if ([node.name isEqualToString:@"right"]) {
-            //self moveSprite:_baelog velocity:(CGPoint)
             _right.color = [SKColor yellowColor];
             _right.colorBlendFactor = 1.0;
             _velocity = CGPointMake(BAELOG_MOVEMENT_SPEED, 0);
@@ -409,7 +509,6 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
             continue;
         }
         if ([node.name isEqualToString:@"left"]) {
-            //self moveSprite:_baelog velocity:(CGPoint)
             _right.color = [SKColor yellowColor];
             _right.colorBlendFactor = 1.0;
             _velocity = CGPointMake(-BAELOG_MOVEMENT_SPEED, 0);
@@ -419,6 +518,12 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
         }
         if ([node.name isEqualToString:@"jump"] && !_midAir) {
             [self jumpBaelog];
+        }
+        if ([node.name isEqualToString:@"punch"] && !_midAir) {
+            [self punchBaelog];
+        }
+        if ([node.name isEqualToString:@"swing"] && !_midAir) {
+            [self swingBaelog];
         }
     }
 }
@@ -450,7 +555,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     }
     else
     {
-        [self stopBaelog];
+        //[self stopBaelog];
     }
 }
 
@@ -460,10 +565,6 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     CGPoint location = [touch locationInNode:self];
     NSArray *nodes = [self nodesAtPoint:location];
     for (SKNode *node in nodes) {
-        //go through nodes, get the zPosition if you want
-        //int nodePos = node.zPosition;
-        
-        //or check the node against your nodes
         if ([node.name isEqualToString:@"right"]) {
             [self stopBaelog];
         } else if ([node.name isEqualToString:@"left"]) {
@@ -572,7 +673,8 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     if (!CGPointEqualToPoint(_camera, CGPointZero)) {
         [_bgLayer removeAllActions];
         [self runAction:[SKAction sequence:@[[SKAction waitForDuration:0.2],
-                                             [SKAction customActionWithDuration:0 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
+                                             [SKAction customActionWithDuration:0
+                                                                    actionBlock:^(SKNode *node, CGFloat elapsedTime) {
             CGPoint velocityVector = CGPointMultiplyScalar(_camera, -1);
             if (_bgLayer.position.y > 0 && velocityVector.y > 0)
             {
@@ -586,8 +688,14 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
             if (_bgLayer.position.x > 0 && velocityVector.x > 0) {
                 velocityVector = CGPointMake(0, velocityVector.y);
             }
+            if (_bgLayer.position.x < -11776//(_terrainMap.mapSize.width - self.size.width)
+                && velocityVector.x < 0)
+            {
+                velocityVector = CGPointMake(0, velocityVector.y);
+            }
             [self moveSprite:_bgLayer velocity:velocityVector];
-            CGPoint unit = CGPointMake(_terrainMap.mapSize.width/ (6 * _background.size.width), _terrainMap.mapSize.height/ (6 * _background.size.height));
+            CGPoint unit = CGPointMake(_terrainMap.mapSize.width/ (6 * _background.size.width),
+                                       _terrainMap.mapSize.height/ (6 * _background.size.height));
             CGPoint bgVel = CGPointMultiply(velocityVector, unit);
             [self moveSprite:_background velocity:bgVel];
         }]]]];
