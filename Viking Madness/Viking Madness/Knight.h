@@ -11,6 +11,7 @@
 @interface Knight : Entity
 
 @property (nonatomic, copy) NSString *patrolWidth;
+@property (nonatomic) CGPoint hostilePosition;
 
 -(void)startPatrol;
 

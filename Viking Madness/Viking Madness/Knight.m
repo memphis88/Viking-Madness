@@ -19,7 +19,9 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
     NSArray *_slashRight;
     
     BOOL _rightDirection;
-    BOOL _changing;
+    BOOL _stopPatrol;
+    BOOL _combat;
+    BOOL _canAttack;
     
     CGPoint _velocity;
     CGPoint _startPos;
@@ -27,11 +29,16 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
     NSTimeInterval _lastUpdateTime;
     NSTimeInterval _dt;
     
+    CGFloat _hostileDistance;
     CGFloat _lastPosition;
     CGFloat _dx;
     
     SKAction *_walkRightAnimation;
     SKAction *_walkLeftAnimation;
+    SKAction *_chaseRightAnimation;
+    SKAction *_chaseLeftAnimation;
+    SKAction *_slashRightAnimation;
+    SKAction *_slashLeftAnimation;
     
     CGFloat _endPosition;
 }
@@ -42,7 +49,8 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
         self.name = @"knight";
         _startPos = position;
         _rightDirection = NO;
-        _changing = NO;
+        _stopPatrol = NO;
+        _canAttack = YES;
         _velocity = CGPointZero;
         [self initActions];
     }
@@ -66,14 +74,15 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
         _dx = 0;
     }
     _lastPosition = self.position.x;
-    
-    //NSLog(@"dt:%f",_dt);
+    _hostileDistance = CGPointDistance(self.position, _hostilePosition);
+    [self checkToEngageCombat];
+    [self followHostile];
     [self moveSprite:self velocity:_velocity];
 }
 
 -(void)didEvaluateActions
 {
-    if ([self reachedEndOfPatrol] && !_changing) {
+    if ([self reachedEndOfPatrol]) {
         [self changeDirectionOfPatrol];
     }
 }
@@ -114,6 +123,10 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
 {
     _walkLeftAnimation = [SKAction animateWithTextures:[self animationTexturesWithKey:@"walkLeft"] timePerFrame:0.2];
     _walkRightAnimation = [SKAction animateWithTextures:[self animationTexturesWithKey:@"walkRight"] timePerFrame:0.2];
+    _chaseRightAnimation = [SKAction animateWithTextures:[self animationTexturesWithKey:@"walkRight"] timePerFrame:0.1];
+    _chaseLeftAnimation = [SKAction animateWithTextures:[self animationTexturesWithKey:@"walkLeft"] timePerFrame:0.1];
+    _slashRightAnimation = [SKAction animateWithTextures:[self animationTexturesWithKey:@"slashRight"] timePerFrame:0.1];
+    _slashLeftAnimation = [SKAction animateWithTextures:[self animationTexturesWithKey:@"slashLeft"] timePerFrame:0.1];
 }
 
 #pragma mark Animation
@@ -199,12 +212,15 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
 
 -(BOOL)reachedEndOfPatrol
 {
+    if (_combat) {
+        return NO;
+    }
     if (self.position.x < _startPos.x) {
-        //NSLog(@"reached left");
+        _rightDirection = YES;
         return YES;
     }
     if (self.position.x > _endPosition - self.size.width/2) {
-        //NSLog(@"reached right");
+        _rightDirection = NO;
         return YES;
     }
     return NO;
@@ -212,8 +228,9 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
 
 -(void)changeDirectionOfPatrol
 {
-    _changing = YES;
-    _rightDirection = !_rightDirection;
+    if (_stopPatrol) {
+        return;
+    }
     if (_rightDirection) {
         if (![self actionForKey:@"walkRight"]) {
             [self removeAllActions];
@@ -229,10 +246,90 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
             [self runAction:[SKAction repeatActionForever:_walkLeftAnimation] withKey:@"walkLeft"];
         }
     }
-    _changing = NO;
 }
 
 
 #pragma mark Combat
+
+-(void)checkToEngageCombat
+{
+    //NSLog(@"%f",_hostileDistance);
+    if (_hostileDistance < 100) {
+        //NSLog(@"HOSTILE DETECTED");
+        _stopPatrol = YES;
+        _combat = YES;
+        if (![self actionForKey:@"chaseRight"] &&
+            ![self actionForKey:@"chaseLeft"] &&
+            ![self actionForKey:@"slashRight"] &&
+            ![self actionForKey:@"slashLeft"])
+        {
+            [self removeAllActions];
+            if (self.position.x < _hostilePosition.x) {
+                _rightDirection = YES;
+                _velocity = CGPointMake(KNIGHT_CHASE_MOVEMENT_SPEED, 0);
+                [self runAction:[SKAction repeatActionForever:_chaseRightAnimation] withKey:@"chaseRight"];
+            }
+            else
+            {
+                _rightDirection = NO;
+                _velocity = CGPointMake(-KNIGHT_CHASE_MOVEMENT_SPEED, 0);
+                [self runAction:[SKAction repeatActionForever:_chaseLeftAnimation] withKey:@"chaseLeft"];
+            }
+        }
+    }
+}
+
+-(void)followHostile
+{
+    if (!_combat) {
+        return;
+    }
+    if (_hostileDistance > self.size.width - 20) {
+        if (![self actionForKey:@"chaseRight"] &&
+            ![self actionForKey:@"chaseLeft"] &&
+            ![self actionForKey:@"slashRight"] &&
+            ![self actionForKey:@"slashLeft"]) {
+            if (_rightDirection) {
+                _velocity = CGPointMake(KNIGHT_CHASE_MOVEMENT_SPEED, 0);
+                [self runAction:[SKAction repeatActionForever:_chaseRightAnimation] withKey:@"chaseRight"];
+            }
+            else
+            {
+                _velocity = CGPointMake(-KNIGHT_CHASE_MOVEMENT_SPEED, 0);
+                [self runAction:[SKAction repeatActionForever:_chaseLeftAnimation] withKey:@"chaseLeft"];
+            }
+        }
+    }
+    else
+    {
+        [self attack];
+    }
+}
+
+-(void)attack
+{
+    if ([self actionForKey:@"slashRight"] ||
+        [self actionForKey:@"slashLeft"]
+        )
+    {
+        return;
+    }
+    [self removeActionForKey:@"chaseLeft"];
+    [self removeActionForKey:@"chaseRight"];
+    _velocity = CGPointZero;
+    
+    if (_rightDirection) {
+        if (![self actionForKey:@"slashRight"]) {
+            [self runAction:_slashRightAnimation withKey:@"slashRight"];
+        }
+    }
+    else
+    {
+        if (![self actionForKey:@"slashLeft"]) {
+            [self runAction:_slashLeftAnimation withKey:@"slashLeft"];
+        }
+    }
+}
+
 
 @end

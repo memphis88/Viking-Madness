@@ -110,7 +110,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
         _midAir = NO;
         _moves = NO;
         
-        //Debuging
+        //Debugging
         _debug = 0;
         _debugArray = @[@"walk",
                         @"climb",
@@ -161,15 +161,15 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
 -(void)didSimulatePhysics
 {
     [self moveCamera];
-    [_playerLayer enumerateChildNodesWithName:@"knight" usingBlock:^(SKNode *node, BOOL *stop) {
-        Knight *knight = (Knight *)node;
-        [knight didEvaluateActions];
-    }];
 }
 
 -(void)didEvaluateActions
 {
-    
+    [_playerLayer enumerateChildNodesWithName:@"knight" usingBlock:^(SKNode *node, BOOL *stop) {
+        Knight *knight = (Knight *)node;
+        [knight didEvaluateActions];
+        knight.hostilePosition = _baelog.position;
+    }];
 }
 
 #pragma mark Initializers
@@ -247,7 +247,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     _baelog.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:baelogPB];
     _baelog.physicsBody.categoryBitMask = VMPhysicsCategoryBaelog;
     _baelog.physicsBody.collisionBitMask = VMPhysicsCategoryTerrain | VMPhysicsCategoryCamera;
-    _baelog.physicsBody.contactTestBitMask = VMPhysicsCategoryTerrain;
+    _baelog.physicsBody.contactTestBitMask = VMPhysicsCategoryTerrain | VMPhysicsCategoryKnight;
     _baelog.physicsBody.restitution = 0.0;
     _baelog.physicsBody.friction = 1.0;
     _baelog.physicsBody.allowsRotation = NO;
@@ -263,6 +263,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
             knight.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:knightPB];
             knight.physicsBody.categoryBitMask = VMPhysicsCategoryKnight;
             knight.physicsBody.collisionBitMask = VMPhysicsCategoryTerrain;
+            knight.physicsBody.contactTestBitMask = VMPhysicsCategoryBaelog;
             knight.physicsBody.allowsRotation = NO;
             knight.physicsBody.angularVelocity = 0;
             
@@ -555,7 +556,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     }
     else
     {
-        //[self stopBaelog];
+        [self stopBaelog];
     }
 }
 
@@ -571,7 +572,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
             [self stopBaelog];
         }
         else {
-
+            
         }
     }
     
@@ -648,7 +649,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
 {
     _idle = NO;
     _idleTime = 0;
-    [_baelog.physicsBody applyImpulse:CGVectorMake(0, 20)];
+    [_baelog.physicsBody applyImpulse:CGVectorMake(0, 17)];
     [_baelog removeAllActions];
     if (_baelog.rightDirection) {
         [_baelog runAction:[self animateBaelogWithKey:@"jump"] withKey:@"jumpAnimation"];
@@ -734,10 +735,13 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
             }
         }
     }
+    if (collision == (VMPhysicsCategoryBaelog | VMPhysicsCategoryKnight)) {
+        //NSLog(@"collide");
+    }
 }
 
 
-#pragma mark Debuging
+#pragma mark Debugging
 
 -(void)dummyAnimationDebug
 {
