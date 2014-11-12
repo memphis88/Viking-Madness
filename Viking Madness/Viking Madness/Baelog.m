@@ -7,6 +7,10 @@
 //
 
 #import "Baelog.h"
+#import "Knight.h"
+
+static const float BAELOG_MAX_HEALTH = 100;
+
 
 @implementation Baelog
 {
@@ -45,6 +49,7 @@
 {
     if (self = [super initWithPosition:position]) {
         self.name = @"baelog";
+        self.health = BAELOG_MAX_HEALTH;
     }
     return self;
 }
@@ -568,6 +573,88 @@
     return _singleFrameL;
 }
 
+#pragma mark Combat
+
+-(void)takeDamage:(float)damage
+{
+    self.health -= damage;
+    //NSLog(@"hp:%f",self.health);
+    [self removeAllActions];
+    if (_rightDirection) {
+        [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"struck"] timePerFrame:0.1] completion:^{
+            [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"frame"] timePerFrame:0]];
+        }];
+    }
+    else
+    {
+        [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"struckLeft"] timePerFrame:0.1] completion:^{
+            [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"frameLeft"] timePerFrame:0]];
+        }];
+        
+    }
+}
+
+-(void)dealDamage:(NSMutableArray *)entities attackType:(AttackType)attack
+{
+    //NSLog(@"%@ \n%lu",[entities description], (unsigned long)[entities count]);
+    for (Knight *knight in entities) {
+        if (![knight parent]) {
+            continue;
+        }
+        if (knight.hostileDistance < (self.size.width/2 + knight.size.width/2)) {
+            if (([self actionForKey:@"swingLeft"] ||
+                 [self actionForKey:@"swingRight"] ||
+                 [self actionForKey:@"punchLeft"] ||
+                 [self actionForKey:@"punchRight"]) &&
+                ![self actionForKey:@"damage"])
+            {
+                CGVector pulse;
+                SKAction *damage;
+                if (_rightDirection)
+                {
+                    pulse = CGVectorMake(30, 0.3);
+                    damage = [SKAction customActionWithDuration:0.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
+                        if (elapsedTime >= 0.3) {
+                            if (knight.hostileDistance <= 32) {
+                                [knight.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
+                                if (attack == Punch) {
+                                    [knight takeDamage:30];
+                                }
+                                else if (attack == Slash)
+                                {
+                                    [knight takeDamage:50];
+                                }
+                                [self removeActionForKey:@"damage"];
+                            }
+                        }
+                    }];
+                }
+                else
+                {
+                    pulse = CGVectorMake(-30, 0.3);
+                    damage = [SKAction customActionWithDuration:0.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
+                        if (elapsedTime >= 0.3) {
+                            if (knight.hostileDistance < 32) {
+                                [knight.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
+                                if (attack == Punch) {
+                                    [knight takeDamage:30];
+                                }
+                                else if (attack == Slash)
+                                {
+                                    [knight takeDamage:50];
+                                }
+                                [self removeActionForKey:@"damage"];
+                            }
+                        }
+                    }];
+                }
+                
+                [self runAction:damage withKey:@"damage"];
+            }
+        }
+        
+    }
+}
 
 
 @end

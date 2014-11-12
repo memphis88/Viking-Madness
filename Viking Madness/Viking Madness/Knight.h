@@ -12,6 +12,9 @@
 
 @property (nonatomic, copy) NSString *patrolWidth;
 @property (nonatomic) CGPoint hostilePosition;
+@property (nonatomic) CGFloat hostileDistance;
+
+@property (nonatomic) Entity *enemy;
 
 -(void)startPatrol;
 

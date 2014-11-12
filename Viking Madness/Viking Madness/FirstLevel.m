@@ -56,8 +56,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     Knight *_knight;
     
     int _debug;
-    NSArray *_debugArray;
-    NSArray *_debugKnight;
+    NSMutableArray *_enemies;
     
     NSTimeInterval _dt;
     NSTimeInterval _lastUpdateTime;
@@ -97,6 +96,8 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
+        _enemies = [[NSMutableArray alloc] init];
+        
         [self initBackground];
         [self initTMXMap];
         [self initEntities];
@@ -112,7 +113,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
         
         //Debugging
         _debug = 0;
-        _debugArray = @[@"walk",
+        /*_debugArray = @[@"walk",
                         @"climb",
                         @"pushObject",
                         @"idle",
@@ -128,7 +129,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
         _debugKnight = @[@"walkLeft",
                          @"walkRight",
                          @"slashLeft",
-                         @"slashRight"];
+                         @"slashRight"];*/
     }
     
     return self;
@@ -270,6 +271,8 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
             knight.patrolWidth = [enemySpawn objectForKey:@"width"];
             [knight attachDebugRectWithSize:knightPB];
             [knight setScale:0.8];
+            knight.enemy = _baelog;
+            [_enemies addObject:knight];
             [_playerLayer addChild:knight];
             [knight startPatrol];
         }
@@ -464,6 +467,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
                     [self stopBaelog];
                 }]]] withKey:@"punchLeft"];
             }
+            [_baelog dealDamage:_enemies attackType:Punch];
         }
     }
 }
@@ -489,6 +493,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
                     [self stopBaelog];
                 }]]] withKey:@"swingLeft"];
             }
+            [_baelog dealDamage:_enemies attackType:Slash];
         }
     }
 }
@@ -735,15 +740,12 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
             }
         }
     }
-    if (collision == (VMPhysicsCategoryBaelog | VMPhysicsCategoryKnight)) {
-        //NSLog(@"collide");
-    }
 }
 
 
 #pragma mark Debugging
 
--(void)dummyAnimationDebug
+/*-(void)dummyAnimationDebug
 {
     [_baelog removeActionForKey:_debugArray[_debug]];
     [_baelog runAction:[SKAction repeatActionForever:[self animateBaelogWithKey:_debugArray[_debug]]] withKey:_debugArray[_debug]];
@@ -756,7 +758,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
         _debug = 0;
     }
     
-}
+}*/
 
 -(void)dummyCamera
 {

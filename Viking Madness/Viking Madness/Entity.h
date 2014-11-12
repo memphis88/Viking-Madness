@@ -19,5 +19,6 @@
 -(void)update:(CFTimeInterval)delta;
 -(NSArray *)animationTexturesWithKey:(NSString *)key;
 -(void)didEvaluateActions;
+-(void)takeDamage:(float)damage;
 
 @end

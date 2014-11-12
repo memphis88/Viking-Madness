@@ -8,8 +8,15 @@
 
 #import "Entity.h"
 
+typedef enum {
+    Punch,
+    Slash,
+} AttackType;
+
 @interface Baelog : Entity
 
 @property (nonatomic) BOOL rightDirection;
+
+-(void)dealDamage:(NSMutableArray *)entities attackType:(AttackType)attack;
 
 @end

@@ -43,4 +43,9 @@
     //Overriden by subs
 }
 
+-(void)takeDamage:(float)damage
+{
+    //Overriden by subs
+}
+
 @end

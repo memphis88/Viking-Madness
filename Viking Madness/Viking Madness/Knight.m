@@ -10,6 +10,7 @@
 
 static const CGFloat KNIGHT_WALK_MOVEMENT_SPEED = 32;
 static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 2;
+static const float KNIGHT_MAX_HEALTH = 100;
 
 @implementation Knight
 {
@@ -23,13 +24,13 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
     BOOL _combat;
     BOOL _canAttack;
     
+    
     CGPoint _velocity;
     CGPoint _startPos;
     
     NSTimeInterval _lastUpdateTime;
     NSTimeInterval _dt;
     
-    CGFloat _hostileDistance;
     CGFloat _lastPosition;
     CGFloat _dx;
     
@@ -52,6 +53,7 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
         _stopPatrol = NO;
         _canAttack = YES;
         _velocity = CGPointZero;
+        self.health = KNIGHT_MAX_HEALTH;
         [self initActions];
     }
     return self;
@@ -74,6 +76,9 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
         _dx = 0;
     }
     _lastPosition = self.position.x;
+    if (self.health <= 0) {
+        [self removeFromParent];
+    }
     _hostileDistance = CGPointDistance(self.position, _hostilePosition);
     [self checkToEngageCombat];
     [self followHostile];
@@ -279,6 +284,15 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
     }
 }
 
+-(void)takeDamage:(float)damage
+{
+    //NSLog(@"id%@: HP:%f, damage:%f", self.description, self.health, damage);
+    self.health -= damage;
+    if (self.health <= 0) {
+        [self removeFromParent];
+    }
+}
+
 -(void)followHostile
 {
     if (!_combat) {
@@ -309,8 +323,7 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
 -(void)attack
 {
     if ([self actionForKey:@"slashRight"] ||
-        [self actionForKey:@"slashLeft"]
-        )
+        [self actionForKey:@"slashLeft"])
     {
         return;
     }
@@ -328,6 +341,46 @@ static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 
         if (![self actionForKey:@"slashLeft"]) {
             [self runAction:_slashLeftAnimation withKey:@"slashLeft"];
         }
+    }
+    [self dealDamage:_rightDirection];
+}
+
+-(void)dealDamage:(BOOL)toRightDirection
+{
+    if (([self actionForKey:@"slashRight"] ||
+        [self actionForKey:@"slashLeft"]) &&
+        ![self actionForKey:@"damage"])
+    {
+        CGVector pulse;
+        SKAction *damage;
+        if (toRightDirection)
+        {
+            pulse = CGVectorMake(6, 0.3);
+            damage = [SKAction customActionWithDuration:0.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
+                if (elapsedTime >= 0.3) {
+                    if (_hostileDistance < self.size.width - 20) {
+                        [_enemy.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
+                        [_enemy takeDamage:10];
+                        [self removeActionForKey:@"damage"];
+                    }
+                }
+            }];
+        }
+        else
+        {
+            pulse = CGVectorMake(-6, 0.3);
+            damage = [SKAction customActionWithDuration:0.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
+                if (elapsedTime >= 0.3) {
+                    if (_hostileDistance < 32) {
+                        [_enemy.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
+                        [_enemy takeDamage:10];
+                        [self removeActionForKey:@"damage"];
+                    }
+                }
+            }];
+        }
+        
+        [self runAction:damage withKey:@"damage"];
     }
 }
 
