@@ -8,6 +8,7 @@
 
 #import "Baelog.h"
 #import "Knight.h"
+#import "SKTAudio.h"
 
 static const float BAELOG_MAX_HEALTH = 100;
 
@@ -28,6 +29,7 @@ static const float BAELOG_MAX_HEALTH = 100;
     NSArray *_pushUp;
     NSArray *_hang;
     NSArray *_singleFrame;
+    NSArray *_death;
     
     NSArray *_walkL;
     NSArray *_jumpL;
@@ -43,6 +45,12 @@ static const float BAELOG_MAX_HEALTH = 100;
     NSArray *_pushUpL;
     NSArray *_hangL;
     NSArray *_singleFrameL;
+    NSArray *_deathL;
+    
+    NSTimeInterval _dt;
+    NSTimeInterval _tick;
+    NSTimeInterval _deathTimer;
+    
 }
 
 -(instancetype)initWithPosition:(CGPoint)position
@@ -50,6 +58,9 @@ static const float BAELOG_MAX_HEALTH = 100;
     if (self = [super initWithPosition:position]) {
         self.name = @"baelog";
         self.health = BAELOG_MAX_HEALTH;
+        self.energy = 100;
+        self.dead = NO;
+        _deathTimer = 0;
     }
     return self;
 }
@@ -65,6 +76,13 @@ static const float BAELOG_MAX_HEALTH = 100;
         texture.filteringMode = SKTextureFilteringNearest;
     });
     return texture;
+}
+
+-(void)update:(CFTimeInterval)delta
+{
+    _dt = delta;
+    [self regenerateEnergy];
+    [self death];
 }
 
 -(NSArray *)animationTexturesWithKey:(NSString *)key
@@ -97,6 +115,8 @@ static const float BAELOG_MAX_HEALTH = 100;
         return [self hangAnimation];
     } else if ([key isEqualToString:@"frame"]) {
         return [self singleFrame];
+    } else if ([key isEqualToString:@"death"]) {
+        return [self deathAnimation];
     } else if ([key isEqualToString:@"walkLeft"]) {
         return [self walkAnimationLeft];
     } else if ([key isEqualToString:@"climbLeft"]) {
@@ -125,6 +145,8 @@ static const float BAELOG_MAX_HEALTH = 100;
         return [self hangAnimationLeft];
     } else if ([key isEqualToString:@"frameLeft"]) {
         return [self singleFrameLeft];
+    } else if ([key isEqualToString:@"deathLeft"]) {
+        return [self deathAnimationLeft];
     }
     return nil;
 }
@@ -351,6 +373,21 @@ static const float BAELOG_MAX_HEALTH = 100;
     return _singleFrame;
 }
 
+-(NSArray *)deathAnimation
+{
+    if (_death) {
+        return _death;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i = 0; i < 4; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"Baelog16-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _death = [NSArray arrayWithArray:textures];
+    return _death;
+}
+
 #pragma mark Left Movement
 
 -(NSArray *)walkAnimationLeft
@@ -573,30 +610,41 @@ static const float BAELOG_MAX_HEALTH = 100;
     return _singleFrameL;
 }
 
+-(NSArray *)deathAnimationLeft
+{
+    if (_deathL) {
+        return _deathL;
+    }
+    NSMutableArray *textures = [NSMutableArray arrayWithCapacity:8];
+    for (int i = 7; i >= 4; i--) {
+        NSString *textureName = [NSString stringWithFormat:@"LBaelog16-%d", i];
+        SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+        [textures addObject:texture];
+    }
+    _deathL = [NSArray arrayWithArray:textures];
+    return _deathL;
+}
+
 #pragma mark Combat
 
 -(void)takeDamage:(float)damage
 {
     self.health -= damage;
-    //NSLog(@"hp:%f",self.health);
     [self removeAllActions];
     if (_rightDirection) {
-        [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"struck"] timePerFrame:0.1] completion:^{
-            [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"frame"] timePerFrame:0]];
-        }];
+        [self runAction:[SKAction sequence:@[[SKAction animateWithTextures:[self animationTexturesWithKey:@"struck"] timePerFrame:0.1],
+                                             [SKAction animateWithTextures:[self animationTexturesWithKey:@"frame"] timePerFrame:0]]] withKey:@"struck"];
     }
     else
     {
-        [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"struckLeft"] timePerFrame:0.1] completion:^{
-            [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"frameLeft"] timePerFrame:0]];
-        }];
+        [self runAction:[SKAction sequence:@[[SKAction animateWithTextures:[self animationTexturesWithKey:@"struckLeft"] timePerFrame:0.1],
+                                             [SKAction animateWithTextures:[self animationTexturesWithKey:@"frameLeft"] timePerFrame:0]]] withKey:@"struckLeft"];
         
     }
 }
 
 -(void)dealDamage:(NSMutableArray *)entities attackType:(AttackType)attack
 {
-    //NSLog(@"%@ \n%lu",[entities description], (unsigned long)[entities count]);
     for (Knight *knight in entities) {
         if (![knight parent]) {
             continue;
@@ -608,22 +656,33 @@ static const float BAELOG_MAX_HEALTH = 100;
                  [self actionForKey:@"punchRight"]) &&
                 ![self actionForKey:@"damage"])
             {
-                CGVector pulse;
+                
                 SKAction *damage;
                 if (_rightDirection)
                 {
-                    pulse = CGVectorMake(30, 0.3);
                     damage = [SKAction customActionWithDuration:0.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
                         if (elapsedTime >= 0.3) {
                             if (knight.hostileDistance <= 32) {
-                                [knight.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
+                                CGVector pulse;
                                 if (attack == Punch) {
+                                    pulse = CGVectorMake(45, 0.3);
                                     [knight takeDamage:30];
+                                    [[SKTAudio sharedInstance] playSoundEffect:@"punch.wav"];
                                 }
                                 else if (attack == Slash)
                                 {
-                                    [knight takeDamage:50];
+                                    if (_energy > 50) {
+                                        _energy -= 50;
+                                        pulse = CGVectorMake(10, 45);
+                                        [knight takeDamage:50];
+                                        [[SKTAudio sharedInstance] playSoundEffect:@"baelogSword.wav"];
+                                    }
+                                    else
+                                    {
+                                        return ;
+                                    }
                                 }
+                                [knight.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
                                 [self removeActionForKey:@"damage"];
                             }
                         }
@@ -631,18 +690,31 @@ static const float BAELOG_MAX_HEALTH = 100;
                 }
                 else
                 {
-                    pulse = CGVectorMake(-30, 0.3);
+                    
                     damage = [SKAction customActionWithDuration:0.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
                         if (elapsedTime >= 0.3) {
+                            CGVector pulse;
                             if (knight.hostileDistance < 32) {
-                                [knight.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
+                                
                                 if (attack == Punch) {
+                                    pulse = CGVectorMake(-45, 0.3);
                                     [knight takeDamage:30];
+                                    [[SKTAudio sharedInstance] playSoundEffect:@"punch.wav"];
                                 }
                                 else if (attack == Slash)
                                 {
-                                    [knight takeDamage:50];
+                                    if (_energy > 50) {
+                                        _energy -= 50;
+                                        pulse = CGVectorMake(-10, 45);
+                                        [knight takeDamage:50];
+                                        [[SKTAudio sharedInstance] playSoundEffect:@"baelogSword.wav"];
+                                    }
+                                    else
+                                    {
+                                        return ;
+                                    }
                                 }
+                                [knight.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
                                 [self removeActionForKey:@"damage"];
                             }
                         }
@@ -656,5 +728,53 @@ static const float BAELOG_MAX_HEALTH = 100;
     }
 }
 
+-(void)regenerateEnergy
+{
+    if (self.energy < 100) {
+        if (_tick < 1) {
+            _tick += _dt;
+        }
+        else
+        {
+            _energy += 10;
+            _tick = 0;
+        }
+    }
+}
+
+-(void)death
+{
+    if (self.dead) {
+        _deathTimer += _dt;
+        if (_deathTimer < 6) {
+            return;
+        }
+        else
+        {
+            [self resetMe];
+        }
+    }
+    if (self.health <= 0) {
+        if (![self actionForKey:@"death"] &&
+            ![self actionForKey:@"deathLeft"]) {
+            self.dead = YES;
+            if (_rightDirection) {
+                [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"death"] timePerFrame:0.1] withKey:@"death"];
+            }
+            else
+            {
+                [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"deathLeft"] timePerFrame:0.1] withKey:@"deathLeft"];
+            }
+        }
+    }
+}
+
+-(void)resetMe
+{
+    self.health = BAELOG_MAX_HEALTH;
+    self.energy = 100;
+    self.dead = NO;
+    _deathTimer = 0;
+}
 
 @end

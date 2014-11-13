@@ -16,6 +16,7 @@ typedef enum {
 @interface Baelog : Entity
 
 @property (nonatomic) BOOL rightDirection;
+@property (nonatomic) float energy;
 
 -(void)dealDamage:(NSMutableArray *)entities attackType:(AttackType)attack;
 

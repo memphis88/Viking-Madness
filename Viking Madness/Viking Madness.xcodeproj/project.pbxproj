@@ -70,12 +70,29 @@
 		DFAB531C1A01BF1C00914D0E /* Knight_Walk_7.png in Resources */ = {isa = PBXBuildFile; fileRef = DFAB52E01A01BF1C00914D0E /* Knight_Walk_7.png */; };
 		DFAB531D1A01BF1C00914D0E /* Knight_Walk_8.png in Resources */ = {isa = PBXBuildFile; fileRef = DFAB52E11A01BF1C00914D0E /* Knight_Walk_8.png */; };
 		DFAB531E1A01BF1C00914D0E /* Knight_Walk_9.png in Resources */ = {isa = PBXBuildFile; fileRef = DFAB52E21A01BF1C00914D0E /* Knight_Walk_9.png */; };
+		DFD069771A13D3BC00B3DFDC /* slash.png in Resources */ = {isa = PBXBuildFile; fileRef = DFD069761A13D3BC00B3DFDC /* slash.png */; };
+		DFD069821A13EB8500B3DFDC /* Arcade.mid in Resources */ = {isa = PBXBuildFile; fileRef = DFD069791A13EB8500B3DFDC /* Arcade.mid */; };
+		DFD069831A13EB8500B3DFDC /* bgmusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DFD0697A1A13EB8500B3DFDC /* bgmusic.mp3 */; };
+		DFD069841A13EB8500B3DFDC /* knightSword.wav in Resources */ = {isa = PBXBuildFile; fileRef = DFD0697B1A13EB8500B3DFDC /* knightSword.wav */; };
+		DFD069851A13EB8500B3DFDC /* diescream.wav in Resources */ = {isa = PBXBuildFile; fileRef = DFD0697C1A13EB8500B3DFDC /* diescream.wav */; };
+		DFD069861A13EB8500B3DFDC /* falling scream.wav in Resources */ = {isa = PBXBuildFile; fileRef = DFD0697D1A13EB8500B3DFDC /* falling scream.wav */; };
+		DFD069871A13EB8500B3DFDC /* nexusFull.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DFD0697E1A13EB8500B3DFDC /* nexusFull.mp3 */; };
+		DFD069881A13EB8500B3DFDC /* PilluRallia.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DFD0697F1A13EB8500B3DFDC /* PilluRallia.mp3 */; };
+		DFD069891A13EB8500B3DFDC /* punch.wav in Resources */ = {isa = PBXBuildFile; fileRef = DFD069801A13EB8500B3DFDC /* punch.wav */; };
+		DFD0698A1A13EB8500B3DFDC /* baelogSword.wav in Resources */ = {isa = PBXBuildFile; fileRef = DFD069811A13EB8500B3DFDC /* baelogSword.wav */; };
+		DFD0698C1A13EB9500B3DFDC /* Strong_Punch.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DFD0698B1A13EB9500B3DFDC /* Strong_Punch.mp3 */; };
+		DFD069901A1405C700B3DFDC /* energy-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = DFD0698D1A1405C700B3DFDC /* energy-bar.png */; };
+		DFD069911A1405C700B3DFDC /* health-bar-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = DFD0698E1A1405C700B3DFDC /* health-bar-placeholder.png */; };
+		DFD069921A1405C700B3DFDC /* health-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = DFD0698F1A1405C700B3DFDC /* health-bar.png */; };
+		DFD069971A14111E00B3DFDC /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = DFD069931A14111E00B3DFDC /* down.png */; };
+		DFD069981A14111E00B3DFDC /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = DFD069941A14111E00B3DFDC /* left.png */; };
+		DFD069991A14111E00B3DFDC /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = DFD069951A14111E00B3DFDC /* right.png */; };
+		DFD0699A1A14111E00B3DFDC /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = DFD069961A14111E00B3DFDC /* up.png */; };
+		DFD0699C1A145CCE00B3DFDC /* punch.png in Resources */ = {isa = PBXBuildFile; fileRef = DFD0699B1A145CCE00B3DFDC /* punch.png */; };
+		DFD0699E1A14647500B3DFDC /* beer.png in Resources */ = {isa = PBXBuildFile; fileRef = DFD0699D1A14647500B3DFDC /* beer.png */; };
+		DFD069A01A146D0600B3DFDC /* burp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DFD0699F1A146D0600B3DFDC /* burp.mp3 */; };
 		DFDACC891A017DCA00F550CF /* Knight.m in Sources */ = {isa = PBXBuildFile; fileRef = DFDACC881A017DC900F550CF /* Knight.m */; };
 		DFDF45921A0533280009EC4D /* Knight_SSlash_5.png in Resources */ = {isa = PBXBuildFile; fileRef = DFDF45911A0533280009EC4D /* Knight_SSlash_5.png */; };
-		FB1EECC41A024B5000BA714F /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = FB1EECC01A024B5000BA714F /* down.png */; };
-		FB1EECC51A024B5000BA714F /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = FB1EECC11A024B5000BA714F /* left.png */; };
-		FB1EECC61A024B5000BA714F /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = FB1EECC21A024B5000BA714F /* right.png */; };
-		FB1EECC71A024B5000BA714F /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = FB1EECC31A024B5000BA714F /* up.png */; };
 		FB4E491119F7F7BE00C715F4 /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4E491019F7F7BE00C715F4 /* Entity.m */; };
 		FB4E491419F7F85A00C715F4 /* Baelog.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4E491319F7F85A00C715F4 /* Baelog.m */; };
 		FB4E492019F7F89200C715F4 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4E491719F7F89200C715F4 /* SKAction+SKTExtras.m */; };
@@ -170,7 +187,7 @@
 		FB4E49D119F7F99100C715F4 /* Baelog20-0.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4E497A19F7F99100C715F4 /* Baelog20-0.png */; };
 		FB4E49D219F7F99100C715F4 /* Baelog20-1.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4E497B19F7F99100C715F4 /* Baelog20-1.png */; };
 		FB4E49D319F7F99100C715F4 /* Baelog20-2.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4E497C19F7F99100C715F4 /* Baelog20-2.png */; };
-		FB4E49E319F8018600C715F4 /* FirstLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4E49E219F8018600C715F4 /* FirstLevel.m */; };
+		FB4E49E319F8018600C715F4 /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4E49E219F8018600C715F4 /* Level.m */; };
 		FBA76BD119F6F2FD0011AE2E /* bubble_soap.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBA76BD019F6F2FD0011AE2E /* bubble_soap.ttf */; };
 		FBB8E4CD19F5446200A482A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4CC19F5446200A482A3 /* Foundation.framework */; };
 		FBB8E4CF19F5446200A482A3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4CE19F5446200A482A3 /* CoreGraphics.framework */; };
@@ -181,7 +198,7 @@
 		FBB8E4DF19F5446200A482A3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB8E4DE19F5446200A482A3 /* AppDelegate.m */; };
 		FBB8E4E219F5446200A482A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E4E019F5446200A482A3 /* Main.storyboard */; };
 		FBB8E4E519F5446200A482A3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB8E4E419F5446200A482A3 /* ViewController.m */; };
-		FBB8E4E819F5446200A482A3 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB8E4E719F5446200A482A3 /* MyScene.m */; };
+		FBB8E4E819F5446200A482A3 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FBB8E4E719F5446200A482A3 /* MainMenu.m */; };
 		FBB8E4EC19F5446200A482A3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBB8E4EB19F5446200A482A3 /* Images.xcassets */; };
 		FBB8E4F319F5446200A482A3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4F219F5446200A482A3 /* XCTest.framework */; };
 		FBB8E4F419F5446200A482A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB8E4CC19F5446200A482A3 /* Foundation.framework */; };
@@ -358,13 +375,30 @@
 		DFAB52E01A01BF1C00914D0E /* Knight_Walk_7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Knight_Walk_7.png; sourceTree = "<group>"; };
 		DFAB52E11A01BF1C00914D0E /* Knight_Walk_8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Knight_Walk_8.png; sourceTree = "<group>"; };
 		DFAB52E21A01BF1C00914D0E /* Knight_Walk_9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Knight_Walk_9.png; sourceTree = "<group>"; };
+		DFD069761A13D3BC00B3DFDC /* slash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slash.png; sourceTree = "<group>"; };
+		DFD069791A13EB8500B3DFDC /* Arcade.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = Arcade.mid; sourceTree = "<group>"; };
+		DFD0697A1A13EB8500B3DFDC /* bgmusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgmusic.mp3; sourceTree = "<group>"; };
+		DFD0697B1A13EB8500B3DFDC /* knightSword.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = knightSword.wav; sourceTree = "<group>"; };
+		DFD0697C1A13EB8500B3DFDC /* diescream.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = diescream.wav; sourceTree = "<group>"; };
+		DFD0697D1A13EB8500B3DFDC /* falling scream.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "falling scream.wav"; sourceTree = "<group>"; };
+		DFD0697E1A13EB8500B3DFDC /* nexusFull.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = nexusFull.mp3; sourceTree = "<group>"; };
+		DFD0697F1A13EB8500B3DFDC /* PilluRallia.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PilluRallia.mp3; sourceTree = "<group>"; };
+		DFD069801A13EB8500B3DFDC /* punch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = punch.wav; sourceTree = "<group>"; };
+		DFD069811A13EB8500B3DFDC /* baelogSword.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = baelogSword.wav; sourceTree = "<group>"; };
+		DFD0698B1A13EB9500B3DFDC /* Strong_Punch.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Strong_Punch.mp3; sourceTree = "<group>"; };
+		DFD0698D1A1405C700B3DFDC /* energy-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "energy-bar.png"; sourceTree = "<group>"; };
+		DFD0698E1A1405C700B3DFDC /* health-bar-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "health-bar-placeholder.png"; sourceTree = "<group>"; };
+		DFD0698F1A1405C700B3DFDC /* health-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "health-bar.png"; sourceTree = "<group>"; };
+		DFD069931A14111E00B3DFDC /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
+		DFD069941A14111E00B3DFDC /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left.png; sourceTree = "<group>"; };
+		DFD069951A14111E00B3DFDC /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
+		DFD069961A14111E00B3DFDC /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
+		DFD0699B1A145CCE00B3DFDC /* punch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = punch.png; sourceTree = "<group>"; };
+		DFD0699D1A14647500B3DFDC /* beer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beer.png; sourceTree = "<group>"; };
+		DFD0699F1A146D0600B3DFDC /* burp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = burp.mp3; sourceTree = "<group>"; };
 		DFDACC871A017DC900F550CF /* Knight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Knight.h; sourceTree = "<group>"; };
 		DFDACC881A017DC900F550CF /* Knight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Knight.m; sourceTree = "<group>"; };
 		DFDF45911A0533280009EC4D /* Knight_SSlash_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Knight_SSlash_5.png; sourceTree = "<group>"; };
-		FB1EECC01A024B5000BA714F /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
-		FB1EECC11A024B5000BA714F /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left.png; sourceTree = "<group>"; };
-		FB1EECC21A024B5000BA714F /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
-		FB1EECC31A024B5000BA714F /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
 		FB4E490F19F7F7BE00C715F4 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		FB4E491019F7F7BE00C715F4 /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
 		FB4E491219F7F85A00C715F4 /* Baelog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baelog.h; sourceTree = "<group>"; };
@@ -466,8 +500,8 @@
 		FB4E497A19F7F99100C715F4 /* Baelog20-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Baelog20-0.png"; sourceTree = "<group>"; };
 		FB4E497B19F7F99100C715F4 /* Baelog20-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Baelog20-1.png"; sourceTree = "<group>"; };
 		FB4E497C19F7F99100C715F4 /* Baelog20-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Baelog20-2.png"; sourceTree = "<group>"; };
-		FB4E49E119F8018600C715F4 /* FirstLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLevel.h; sourceTree = "<group>"; };
-		FB4E49E219F8018600C715F4 /* FirstLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLevel.m; sourceTree = "<group>"; };
+		FB4E49E119F8018600C715F4 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
+		FB4E49E219F8018600C715F4 /* Level.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level.m; sourceTree = "<group>"; };
 		FBA76BD019F6F2FD0011AE2E /* bubble_soap.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bubble_soap.ttf; sourceTree = "<group>"; };
 		FBB8E4C919F5446200A482A3 /* Viking Madness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Viking Madness.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBB8E4CC19F5446200A482A3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -483,8 +517,8 @@
 		FBB8E4E119F5446200A482A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FBB8E4E319F5446200A482A3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		FBB8E4E419F5446200A482A3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		FBB8E4E619F5446200A482A3 /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
-		FBB8E4E719F5446200A482A3 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
+		FBB8E4E619F5446200A482A3 /* MainMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
+		FBB8E4E719F5446200A482A3 /* MainMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
 		FBB8E4EB19F5446200A482A3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FBB8E4F119F5446200A482A3 /* Viking MadnessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Viking MadnessTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBB8E4F219F5446200A482A3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -624,13 +658,6 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		DF9446C41A0D565900E08235 /* Levels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Levels;
-			sourceTree = "<group>";
-		};
 		DFAB52A21A01BF1B00914D0E /* Knight */ = {
 			isa = PBXGroup;
 			children = (
@@ -726,9 +753,39 @@
 			path = Walk;
 			sourceTree = "<group>";
 		};
+		DFD069781A13EB6400B3DFDC /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				DFD0699F1A146D0600B3DFDC /* burp.mp3 */,
+				DFD0698B1A13EB9500B3DFDC /* Strong_Punch.mp3 */,
+				DFD069791A13EB8500B3DFDC /* Arcade.mid */,
+				DFD0697A1A13EB8500B3DFDC /* bgmusic.mp3 */,
+				DFD0697B1A13EB8500B3DFDC /* knightSword.wav */,
+				DFD0697C1A13EB8500B3DFDC /* diescream.wav */,
+				DFD0697D1A13EB8500B3DFDC /* falling scream.wav */,
+				DFD0697E1A13EB8500B3DFDC /* nexusFull.mp3 */,
+				DFD0697F1A13EB8500B3DFDC /* PilluRallia.mp3 */,
+				DFD069801A13EB8500B3DFDC /* punch.wav */,
+				DFD069811A13EB8500B3DFDC /* baelogSword.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		DFD069A11A1470C000B3DFDC /* Death */ = {
+			isa = PBXGroup;
+			children = (
+				FB4E496B19F7F99100C715F4 /* Baelog16-0.png */,
+				FB4E496C19F7F99100C715F4 /* Baelog16-1.png */,
+				FB4E496D19F7F99100C715F4 /* Baelog16-2.png */,
+				FB4E496E19F7F99100C715F4 /* Baelog16-3.png */,
+			);
+			name = Death;
+			sourceTree = "<group>";
+		};
 		DFDF45771A0527F60009EC4D /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				DFD0699D1A14647500B3DFDC /* beer.png */,
 				DFDF458E1A0530060009EC4D /* Level 1 */,
 			);
 			name = Levels;
@@ -747,11 +804,16 @@
 		FB1EECB71A02485900BA714F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				DFD0698D1A1405C700B3DFDC /* energy-bar.png */,
+				DFD0698E1A1405C700B3DFDC /* health-bar-placeholder.png */,
+				DFD0698F1A1405C700B3DFDC /* health-bar.png */,
+				DFD0699B1A145CCE00B3DFDC /* punch.png */,
+				DFD069761A13D3BC00B3DFDC /* slash.png */,
+				DFD069931A14111E00B3DFDC /* down.png */,
+				DFD069941A14111E00B3DFDC /* left.png */,
+				DFD069951A14111E00B3DFDC /* right.png */,
+				DFD069961A14111E00B3DFDC /* up.png */,
 				FBBED8E51A03DAF900A8253F /* circle_grey.png */,
-				FB1EECC01A024B5000BA714F /* down.png */,
-				FB1EECC11A024B5000BA714F /* left.png */,
-				FB1EECC21A024B5000BA714F /* right.png */,
-				FB1EECC31A024B5000BA714F /* up.png */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -933,10 +995,10 @@
 		FB4E49E019F8016A00C715F4 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				FBB8E4E619F5446200A482A3 /* MyScene.h */,
-				FBB8E4E719F5446200A482A3 /* MyScene.m */,
-				FB4E49E119F8018600C715F4 /* FirstLevel.h */,
-				FB4E49E219F8018600C715F4 /* FirstLevel.m */,
+				FBB8E4E619F5446200A482A3 /* MainMenu.h */,
+				FBB8E4E719F5446200A482A3 /* MainMenu.m */,
+				FB4E49E119F8018600C715F4 /* Level.h */,
+				FB4E49E219F8018600C715F4 /* Level.m */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -962,10 +1024,6 @@
 				FB4E496819F7F99100C715F4 /* Baelog15-3.png */,
 				FB4E496919F7F99100C715F4 /* Baelog15-4.png */,
 				FB4E496A19F7F99100C715F4 /* Baelog15-5.png */,
-				FB4E496B19F7F99100C715F4 /* Baelog16-0.png */,
-				FB4E496C19F7F99100C715F4 /* Baelog16-1.png */,
-				FB4E496D19F7F99100C715F4 /* Baelog16-2.png */,
-				FB4E496E19F7F99100C715F4 /* Baelog16-3.png */,
 				FB4E496F19F7F99100C715F4 /* Baelog17-0.png */,
 				FB4E497019F7F99100C715F4 /* Baelog17-1.png */,
 				FB4E497119F7F99100C715F4 /* Baelog17-2.png */,
@@ -1001,6 +1059,7 @@
 				FBB8E4CB19F5446200A482A3 /* Frameworks */,
 				FBB8E4CA19F5446200A482A3 /* Products */,
 				FBA76BCF19F6F2C00011AE2E /* Fonts */,
+				DFD069781A13EB6400B3DFDC /* Sounds */,
 				FBB8E50819F5469400A482A3 /* Art */,
 			);
 			sourceTree = "<group>";
@@ -1033,7 +1092,6 @@
 				FBBED8E71A03DC2D00A8253F /* SKSpriteNode+DebugDraw.h */,
 				FBBED8E81A03DC2D00A8253F /* SKSpriteNode+DebugDraw.m */,
 				DF327AC21A0D406D00D451B4 /* JSTileMap */,
-				DF9446C41A0D565900E08235 /* Levels */,
 				FB4E49E019F8016A00C715F4 /* Scenes */,
 				FB4E490E19F7F77600C715F4 /* Entities */,
 				FBB8E4DD19F5446200A482A3 /* AppDelegate.h */,
@@ -1123,6 +1181,7 @@
 				FB4E49DD19F7FAD600C715F4 /* Direct Punch */,
 				FB4E49DE19F7FAFA00C715F4 /* Push up */,
 				FB4E49DF19F7FB2700C715F4 /* Hang */,
+				DFD069A11A1470C000B3DFDC /* Death */,
 				FB4E49E419F8264000C715F4 /* TONAME */,
 			);
 			name = Right;
@@ -1344,6 +1403,7 @@
 				FBBED82E1A039AD800A8253F /* LBaelog-9-5.png in Resources */,
 				FBBED8571A039AD800A8253F /* LBaelog18-6.png in Resources */,
 				DFAB53021A01BF1C00914D0E /* Knight_SSlash_03.png in Resources */,
+				DFD069891A13EB8500B3DFDC /* punch.wav in Resources */,
 				FB4E498C19F7F99100C715F4 /* Baelog-2-1.png in Resources */,
 				FB4E499319F7F99100C715F4 /* Baelog-4-4.png in Resources */,
 				FBBED83F1A039AD800A8253F /* LBaelog13-3.png in Resources */,
@@ -1357,14 +1417,15 @@
 				FBBED82D1A039AD800A8253F /* LBaelog-9-4.png in Resources */,
 				FB4E49B219F7F99100C715F4 /* Baelog12-2.png in Resources */,
 				FB4E49BC19F7F99100C715F4 /* Baelog15-0.png in Resources */,
+				DFD069831A13EB8500B3DFDC /* bgmusic.mp3 in Resources */,
 				FB4E49B919F7F99100C715F4 /* Baelog14-0.png in Resources */,
 				FB4E49A719F7F99100C715F4 /* Baelog10-1.png in Resources */,
 				DFAB52F61A01BF1C00914D0E /* Knight_SSlash_13.png in Resources */,
-				FB1EECC51A024B5000BA714F /* left.png in Resources */,
 				FB4E498819F7F99100C715F4 /* Baelog-1-3.png in Resources */,
 				FBBED8331A039AD800A8253F /* LBaelog11-0.png in Resources */,
 				FBBED8341A039AD800A8253F /* LBaelog11-1.png in Resources */,
 				DFAB53141A01BF1C00914D0E /* Knight_Walk_16.png in Resources */,
+				DFD069861A13EB8500B3DFDC /* falling scream.wav in Resources */,
 				DFAB52F71A01BF1C00914D0E /* Knight_SSlash_2.png in Resources */,
 				FB4E499F19F7F99100C715F4 /* Baelog-8-1.png in Resources */,
 				DF9157241A006B5A00B89BFF /* logo.png in Resources */,
@@ -1388,6 +1449,7 @@
 				FB4E49C419F7F99100C715F4 /* Baelog16-2.png in Resources */,
 				FBBED8201A039AD800A8253F /* LBaelog-5-4.png in Resources */,
 				FBBED8541A039AD800A8253F /* LBaelog17-7.png in Resources */,
+				DFD0698A1A13EB8500B3DFDC /* baelogSword.wav in Resources */,
 				FBBED8561A039AD800A8253F /* LBaelog18-5.png in Resources */,
 				FB4E49AD19F7F99100C715F4 /* Baelog11-5.png in Resources */,
 				FB4E49BB19F7F99100C715F4 /* Baelog14-2.png in Resources */,
@@ -1417,6 +1479,7 @@
 				DFAB53171A01BF1C00914D0E /* Knight_Walk_2.png in Resources */,
 				FBBED8351A039AD800A8253F /* LBaelog11-2.png in Resources */,
 				FBBED8321A039AD800A8253F /* LBaelog10-7.png in Resources */,
+				DFD0698C1A13EB9500B3DFDC /* Strong_Punch.mp3 in Resources */,
 				DFAB531B1A01BF1C00914D0E /* Knight_Walk_6.png in Resources */,
 				FB4E49B119F7F99100C715F4 /* Baelog12-1.png in Resources */,
 				DFAB52FC1A01BF1C00914D0E /* Knight_SSlash_7.png in Resources */,
@@ -1428,6 +1491,7 @@
 				DFAB53041A01BF1C00914D0E /* Knight_SSlash_05.png in Resources */,
 				FB4E499519F7F99100C715F4 /* Baelog-5-0.png in Resources */,
 				FBBED81A1A039AD800A8253F /* LBaelog-1-6.png in Resources */,
+				DFD069921A1405C700B3DFDC /* health-bar.png in Resources */,
 				FB4E49B719F7F99100C715F4 /* Baelog13-4.png in Resources */,
 				FB4E49B519F7F99100C715F4 /* Baelog13-2.png in Resources */,
 				DFAB53191A01BF1C00914D0E /* Knight_Walk_4.png in Resources */,
@@ -1441,6 +1505,7 @@
 				FB4E49D319F7F99100C715F4 /* Baelog20-2.png in Resources */,
 				FB4E498619F7F99100C715F4 /* Baelog-1-1.png in Resources */,
 				FB4E49B019F7F99100C715F4 /* Baelog12-0.png in Resources */,
+				DFD0699A1A14111E00B3DFDC /* up.png in Resources */,
 				FBBED8401A039AD800A8253F /* LBaelog13-4.png in Resources */,
 				DFAB52F51A01BF1C00914D0E /* Knight_SSlash_12.png in Resources */,
 				DFAB53071A01BF1C00914D0E /* Knight_SSlash_08.png in Resources */,
@@ -1452,19 +1517,21 @@
 				FBBED82A1A039AD800A8253F /* LBaelog-8-5.png in Resources */,
 				FB4E499C19F7F99100C715F4 /* Baelog-7-1.png in Resources */,
 				FB4E49CE19F7F99100C715F4 /* Baelog19-0.png in Resources */,
+				DFD069771A13D3BC00B3DFDC /* slash.png in Resources */,
 				FBBED8251A039AD800A8253F /* LBaelog-6-7.png in Resources */,
 				FBBED83A1A039AD800A8253F /* LBaelog11-7.png in Resources */,
 				FBB8E50D19F54C9A00A482A3 /* logo.old.png in Resources */,
 				FB4E49A219F7F99100C715F4 /* Baelog-9-0.png in Resources */,
-				FB1EECC61A024B5000BA714F /* right.png in Resources */,
 				FB4E49D219F7F99100C715F4 /* Baelog20-1.png in Resources */,
 				FB4E49CB19F7F99100C715F4 /* Baelog18-1.png in Resources */,
 				DFAB53151A01BF1C00914D0E /* Knight_Walk_17.png in Resources */,
 				FBBED8211A039AD800A8253F /* LBaelog-5-5.png in Resources */,
+				DFD069841A13EB8500B3DFDC /* knightSword.wav in Resources */,
 				FBBED8191A039AD800A8253F /* LBaelog-1-5.png in Resources */,
 				FBBED86C1A039AD800A8253F /* LBaelog-0-7.png in Resources */,
 				FBBED8231A039AD800A8253F /* LBaelog-5-7.png in Resources */,
 				FB4E49AA19F7F99100C715F4 /* Baelog11-2.png in Resources */,
+				DFD069991A14111E00B3DFDC /* right.png in Resources */,
 				FBBED84F1A039AD800A8253F /* LBaelog16-6.png in Resources */,
 				DFAB53031A01BF1C00914D0E /* Knight_SSlash_04.png in Resources */,
 				DF327AC61A0D40EF00D451B4 /* level1.tmx in Resources */,
@@ -1473,6 +1540,7 @@
 				FBBED8181A039AD800A8253F /* LBaelog-1-4.png in Resources */,
 				FB4E49CA19F7F99100C715F4 /* Baelog18-0.png in Resources */,
 				DFAB530A1A01BF1C00914D0E /* Knight_SSlash_11.png in Resources */,
+				DFD0699E1A14647500B3DFDC /* beer.png in Resources */,
 				FBBED8601A039AD800A8253F /* LBaelog-4-3.png in Resources */,
 				DFAB52E41A01BF1C00914D0E /* Knight_Slash_1.png in Resources */,
 				DFAB52EF1A01BF1C00914D0E /* Knight_Slash_8.png in Resources */,
@@ -1480,19 +1548,22 @@
 				FBBED8621A039AD800A8253F /* LBaelog-4-5.png in Resources */,
 				FB4E49AC19F7F99100C715F4 /* Baelog11-4.png in Resources */,
 				DFDF45921A0533280009EC4D /* Knight_SSlash_5.png in Resources */,
+				DFD069981A14111E00B3DFDC /* left.png in Resources */,
 				FBBED8531A039AD800A8253F /* LBaelog17-6.png in Resources */,
 				FB4E49C219F7F99100C715F4 /* Baelog16-0.png in Resources */,
 				FB4E49A619F7F99100C715F4 /* Baelog10-0.png in Resources */,
 				FBBED8671A039AD800A8253F /* LBaelog-0-2.png in Resources */,
+				DFD069851A13EB8500B3DFDC /* diescream.wav in Resources */,
 				FBBED81B1A039AD800A8253F /* LBaelog-1-7.png in Resources */,
 				DFAB52FB1A01BF1C00914D0E /* Knight_SSlash_6.png in Resources */,
-				FB1EECC41A024B5000BA714F /* down.png in Resources */,
 				FB4E49CD19F7F99100C715F4 /* Baelog18-3.png in Resources */,
 				FB4E49A319F7F99100C715F4 /* Baelog-9-1.png in Resources */,
 				FB4E49A819F7F99100C715F4 /* Baelog11-0.png in Resources */,
 				FBBED8411A039AD800A8253F /* LBaelog13-5.png in Resources */,
 				FBBED82F1A039AD800A8253F /* LBaelog-9-6.png in Resources */,
+				DFD069901A1405C700B3DFDC /* energy-bar.png in Resources */,
 				FB4E499219F7F99100C715F4 /* Baelog-4-3.png in Resources */,
+				DFD069911A1405C700B3DFDC /* health-bar-placeholder.png in Resources */,
 				DFAB52F91A01BF1C00914D0E /* Knight_SSlash_4.png in Resources */,
 				FB4E499D19F7F99100C715F4 /* Baelog-7-2.png in Resources */,
 				FBBED81C1A039AD800A8253F /* LBaelog-3-6.png in Resources */,
@@ -1519,12 +1590,12 @@
 				FBBED8271A039AD800A8253F /* LBaelog-7-6.png in Resources */,
 				FBBED82B1A039AD800A8253F /* LBaelog-8-6.png in Resources */,
 				FBBED8261A039AD800A8253F /* LBaelog-7-5.png in Resources */,
-				FB1EECC71A024B5000BA714F /* up.png in Resources */,
 				DFAB530D1A01BF1C00914D0E /* Knight_Walk_1.png in Resources */,
 				FB4E49BF19F7F99100C715F4 /* Baelog15-3.png in Resources */,
 				FB4E498919F7F99100C715F4 /* Baelog-1-4.png in Resources */,
 				FBBED8431A039AD800A8253F /* LBaelog13-7.png in Resources */,
 				FBBED84D1A039AD800A8253F /* LBaelog16-4.png in Resources */,
+				DFD069871A13EB8500B3DFDC /* nexusFull.mp3 in Resources */,
 				FB4E49A919F7F99100C715F4 /* Baelog11-1.png in Resources */,
 				FBBED8E61A03DAF900A8253F /* circle_grey.png in Resources */,
 				FBBED8511A039AD800A8253F /* LBaelog17-4.png in Resources */,
@@ -1534,11 +1605,13 @@
 				FBBED85B1A039AD800A8253F /* LBaelog19-7.png in Resources */,
 				FB4E498D19F7F99100C715F4 /* Baelog-3-0.png in Resources */,
 				FBBED8171A039AD800A8253F /* LBaelog-1-3.png in Resources */,
+				DFD069821A13EB8500B3DFDC /* Arcade.mid in Resources */,
 				DFAB531C1A01BF1C00914D0E /* Knight_Walk_7.png in Resources */,
 				FBBED8381A039AD800A8253F /* LBaelog11-5.png in Resources */,
 				FBBED8441A039AD800A8253F /* LBaelog14-5.png in Resources */,
 				FB4E498719F7F99100C715F4 /* Baelog-1-2.png in Resources */,
 				FB4E49A519F7F99100C715F4 /* Baelog-9-3.png in Resources */,
+				DFD069881A13EB8500B3DFDC /* PilluRallia.mp3 in Resources */,
 				FBB8E50F19F5566200A482A3 /* signButton.png in Resources */,
 				FB4E49C019F7F99100C715F4 /* Baelog15-4.png in Resources */,
 				FBBED8551A039AD800A8253F /* LBaelog18-4.png in Resources */,
@@ -1558,6 +1631,7 @@
 				DFAB52E71A01BF1C00914D0E /* Knight_Slash_12.png in Resources */,
 				DFAB52FF1A01BF1C00914D0E /* Knight_SSlash_00.png in Resources */,
 				FBBED8681A039AD800A8253F /* LBaelog-0-3.png in Resources */,
+				DFD0699C1A145CCE00B3DFDC /* punch.png in Resources */,
 				FB4E49BA19F7F99100C715F4 /* Baelog14-1.png in Resources */,
 				FBBED84E1A039AD800A8253F /* LBaelog16-5.png in Resources */,
 				FB4E497E19F7F99100C715F4 /* Baelog-0-1.png in Resources */,
@@ -1570,6 +1644,7 @@
 				FBBED8691A039AD800A8253F /* LBaelog-0-4.png in Resources */,
 				FB4E498419F7F99100C715F4 /* Baelog-0-7.png in Resources */,
 				FBBED86A1A039AD800A8253F /* LBaelog-0-5.png in Resources */,
+				DFD069971A14111E00B3DFDC /* down.png in Resources */,
 				FBBED8641A039AD800A8253F /* LBaelog-4-7.png in Resources */,
 				DFAB52E51A01BF1C00914D0E /* Knight_Slash_10.png in Resources */,
 				DF9446DA1A0DC1C400E08235 /* bg.png in Resources */,
@@ -1588,6 +1663,7 @@
 				FBBED8661A039AD800A8253F /* LBaelog-0-1.png in Resources */,
 				DFAB52F01A01BF1C00914D0E /* Knight_Slash_9.png in Resources */,
 				FB4E49C119F7F99100C715F4 /* Baelog15-5.png in Resources */,
+				DFD069A01A146D0600B3DFDC /* burp.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1610,8 +1686,8 @@
 				DF327AC01A0D406200D451B4 /* LFCGzipUtility.m in Sources */,
 				FB4E492219F7F89200C715F4 /* SKNode+SKTExtras.m in Sources */,
 				FB4E491419F7F85A00C715F4 /* Baelog.m in Sources */,
-				FB4E49E319F8018600C715F4 /* FirstLevel.m in Sources */,
-				FBB8E4E819F5446200A482A3 /* MyScene.m in Sources */,
+				FB4E49E319F8018600C715F4 /* Level.m in Sources */,
+				FBB8E4E819F5446200A482A3 /* MainMenu.m in Sources */,
 				FB4E492419F7F89200C715F4 /* SKTUtils.mm in Sources */,
 				DFDACC891A017DCA00F550CF /* Knight.m in Sources */,
 				FB4E492019F7F89200C715F4 /* SKAction+SKTExtras.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "Knight.h"
+#import "SKTAudio.h"
 
 static const CGFloat KNIGHT_WALK_MOVEMENT_SPEED = 32;
 static const CGFloat KNIGHT_CHASE_MOVEMENT_SPEED = KNIGHT_WALK_MOVEMENT_SPEED * 2;
@@ -22,7 +23,6 @@ static const float KNIGHT_MAX_HEALTH = 100;
     BOOL _rightDirection;
     BOOL _stopPatrol;
     BOOL _combat;
-    BOOL _canAttack;
     
     
     CGPoint _velocity;
@@ -51,7 +51,6 @@ static const float KNIGHT_MAX_HEALTH = 100;
         _startPos = position;
         _rightDirection = NO;
         _stopPatrol = NO;
-        _canAttack = YES;
         _velocity = CGPointZero;
         self.health = KNIGHT_MAX_HEALTH;
         [self initActions];
@@ -298,6 +297,12 @@ static const float KNIGHT_MAX_HEALTH = 100;
     if (!_combat) {
         return;
     }
+    if (_enemy.dead) {
+        _velocity = CGPointZero;
+        [self removeAllActions];
+        self.texture = [SKTexture textureWithImageNamed:@"Knight_Walk_0"];
+        return;
+    }
     if (_hostileDistance > self.size.width - 20) {
         if (![self actionForKey:@"chaseRight"] &&
             ![self actionForKey:@"chaseLeft"] &&
@@ -355,12 +360,13 @@ static const float KNIGHT_MAX_HEALTH = 100;
         SKAction *damage;
         if (toRightDirection)
         {
-            pulse = CGVectorMake(6, 0.3);
+            pulse = CGVectorMake(2, 6.3);
             damage = [SKAction customActionWithDuration:0.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
                 if (elapsedTime >= 0.3) {
                     if (_hostileDistance < self.size.width - 20) {
                         [_enemy.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
                         [_enemy takeDamage:10];
+                        [[SKTAudio sharedInstance] playSoundEffect:@"knightSword.wav"];
                         [self removeActionForKey:@"damage"];
                     }
                 }
@@ -368,19 +374,21 @@ static const float KNIGHT_MAX_HEALTH = 100;
         }
         else
         {
-            pulse = CGVectorMake(-6, 0.3);
+            pulse = CGVectorMake(-2, 6.3);
             damage = [SKAction customActionWithDuration:0.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
                 if (elapsedTime >= 0.3) {
                     if (_hostileDistance < 32) {
                         [_enemy.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
                         [_enemy takeDamage:10];
+                        [[SKTAudio sharedInstance] playSoundEffect:@"knightSword.wav"];
                         [self removeActionForKey:@"damage"];
                     }
                 }
             }];
         }
         
-        [self runAction:damage withKey:@"damage"];
+        [self runAction:[SKAction sequence:@[damage, [SKAction waitForDuration:1.5]]] withKey:@"damage"];
+        self.dead = YES;
     }
 }
 

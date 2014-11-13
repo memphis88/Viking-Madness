@@ -13,6 +13,7 @@
 @property (assign, nonatomic) CGPoint direction;
 @property (assign, nonatomic) float health;
 @property (assign, nonatomic) float maxHealth;
+@property (nonatomic) BOOL dead;
 
 +(SKTexture *)generateTexture;
 -(instancetype)initWithPosition:(CGPoint)position;
