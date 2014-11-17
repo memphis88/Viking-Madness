@@ -328,7 +328,8 @@ static const float KNIGHT_MAX_HEALTH = 100;
 -(void)attack
 {
     if ([self actionForKey:@"slashRight"] ||
-        [self actionForKey:@"slashLeft"])
+        [self actionForKey:@"slashLeft"] ||
+        [self actionForKey:@"damage"])
     {
         return;
     }
@@ -361,7 +362,7 @@ static const float KNIGHT_MAX_HEALTH = 100;
         if (toRightDirection)
         {
             pulse = CGVectorMake(2, 6.3);
-            damage = [SKAction customActionWithDuration:0.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
+            damage = [SKAction customActionWithDuration:1.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
                 if (elapsedTime >= 0.3) {
                     if (_hostileDistance < self.size.width - 20) {
                         [_enemy.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
@@ -375,7 +376,7 @@ static const float KNIGHT_MAX_HEALTH = 100;
         else
         {
             pulse = CGVectorMake(-2, 6.3);
-            damage = [SKAction customActionWithDuration:0.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
+            damage = [SKAction customActionWithDuration:1.6 actionBlock:^(SKNode *node, CGFloat elapsedTime) {
                 if (elapsedTime >= 0.3) {
                     if (_hostileDistance < 32) {
                         [_enemy.physicsBody applyImpulse:pulse atPoint:CGPointMake(0, 0)];
@@ -387,8 +388,8 @@ static const float KNIGHT_MAX_HEALTH = 100;
             }];
         }
         
-        [self runAction:[SKAction sequence:@[damage, [SKAction waitForDuration:1.5]]] withKey:@"damage"];
-        self.dead = YES;
+        [self runAction:damage withKey:@"damage"];
+        //self.dead = YES;
     }
 }
 

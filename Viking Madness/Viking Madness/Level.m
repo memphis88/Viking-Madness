@@ -86,12 +86,15 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     SKAction *_punchLeftAnimation;
     SKAction *_swingAnimation;
     SKAction *_swingLeftAnimation;
+    SKAction *_fallVoid;
+    SKAction *_fallVoidLeft;
     
     SKTAudio *_backgroundMusicPlayer;
     
     BOOL _idle;
     BOOL _midAir;
     BOOL _moves;
+    BOOL _gameOver;
     CGPoint _velocity;
     int _currentSlice;
     CGPoint _camera;
@@ -119,7 +122,7 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
         _idle = NO;
         _midAir = NO;
         _moves = NO;
-        
+        _gameOver = NO;
         //Debugging
         _debug = 0;
         /*_debugArray = @[@"walk",
@@ -360,6 +363,8 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     _punchLeftAnimation = [self animateBaelogWithKey:@"directPunchLeft"];
     _swingAnimation = [self animateBaelogWithKey:@"swordSwing"];
     _swingLeftAnimation = [self animateBaelogWithKey:@"swordSwingLeft"];
+    _fallVoid = [SKAction animateWithTextures:[_baelog animationTexturesWithKey:@"voidFall"] timePerFrame:0];
+    _fallVoidLeft = [SKAction animateWithTextures:[_baelog animationTexturesWithKey:@"voidFallLeft"] timePerFrame:0];
 }
 
 -(void)initSounds
@@ -455,6 +460,16 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     [_userInterface addChild:energyMaskNode];
     
     
+    for (int i = 0; i < _baelog.lives; i++) {
+        SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
+        heart.name = [NSString stringWithFormat:@"heart%d",i];
+        [heart setScale:0.2];
+        heart.anchorPoint = CGPointZero;
+        heart.position = CGPointMake(_avatarPlaceholder.position.x + _avatarPlaceholder.size.width/2 - (heart.size.width * i) - 45,
+                                     _avatarPlaceholder.position.y - _avatarPlaceholder.size.height/2 + 25);
+        [_userInterface addChild:heart];
+    }
+    
     
     //117, 180 - 50, 15
     
@@ -501,17 +516,26 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
 
 -(void)fallBaelog
 {
+    CGPoint baelogInMap = [_terrainMap convertPoint:_baelog.position fromNode:self];
+    //NSLog(@"bump %f", baelogInMap.y);
     if (_midAir) {
         if (_baelog.physicsBody.velocity.dy < 0) {
+            if (baelogInMap.y < 39) {
+                [_baelog deathByFall];
+            }
             if (![_baelog actionForKey:@"fallRightAnimation"] &&
                 ![_baelog actionForKey:@"fallLeftAnimation"] &&
                 ![_baelog actionForKey:@"struck"] &&
                 ![_baelog actionForKey:@"struckLeft"] &&
                 ![_baelog actionForKey:@"death"] &&
-                ![_baelog actionForKey:@"deathLeft"]) {
+                ![_baelog actionForKey:@"deathLeft"] &&
+                ![_baelog actionForKey:@"fallVoid"] &&
+                ![_baelog actionForKey:@"fallVoidLeft"]) {
                 [_baelog removeAllActions];
+                
                 if (_baelog.rightDirection) {
                     [_baelog runAction:[SKAction repeatActionForever:_fallAnimation] withKey:@"fallRightAnimation"];
+                    
                 }
                 else
                 {
@@ -598,6 +622,22 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     SKAction *updateNRG = [SKAction moveToX:posToMove duration:0.1];
     if (![_energyMask actionForKey:@"updateNRG"]) {
         [_energyMask runAction:updateNRG withKey:@"updateNRG"];
+    }
+    switch (_baelog.lives) {
+        case 2:
+            [[_userInterface childNodeWithName:@"heart2"] setHidden:YES];
+            break;
+        case 1:
+            [[_userInterface childNodeWithName:@"heart2"] setHidden:YES];
+            [[_userInterface childNodeWithName:@"heart1"] setHidden:YES];
+            break;
+        case 0:
+            [[_userInterface childNodeWithName:@"heart2"] setHidden:YES];
+            [[_userInterface childNodeWithName:@"heart1"] setHidden:YES];
+            [[_userInterface childNodeWithName:@"heart0"] setHidden:YES];
+            [self gameOver];
+        default:
+            break;
     }
 }
 
@@ -885,6 +925,60 @@ static const float BAELOG_MOVEMENT_SPEED = 1024/8;
     }
 }
 
+#pragma mark Win - Lose
+
+-(void)gameOver
+{
+    if (_gameOver) {
+        return;
+    }
+    [self inGameMessage:@"Game Over!"];
+    _gameOver = YES;
+    [_playerLayer removeFromParent];
+}
+
+-(void)levelCleared
+{
+    
+}
+
+- (void)inGameMessage:(NSString*)text
+{
+    // 1
+    SKLabelNode *label =
+    [SKLabelNode labelNodeWithFontNamed:@"bubble & soap"];
+    label.text = text;
+    label.fontSize = 64.0;
+    label.fontColor = [SKColor redColor];
+    [_userInterface addChild:label];
+    // 2
+    label.position = CGPointMake(self.frame.size.width/2,
+                                 self.frame.size.height/2);
+    
+    SKAction *appear = [SKAction scaleTo:2.0 duration:1.0];
+    SKAction *leftWiggle = [SKAction rotateByAngle:M_PI / 8
+                                          duration:1.5];
+    SKAction *rightWiggle = [leftWiggle reversedAction];
+    SKAction *fullWiggle =[SKAction sequence:
+                           @[leftWiggle, rightWiggle]];
+    //SKAction *wiggleWait =
+    //  [SKAction repeatAction:fullWiggle count:10];
+    //SKAction *wait = [SKAction waitForDuration:10.0];
+    
+    SKAction *scaleUp = [SKAction scaleBy:2.4 duration:1.5];
+    SKAction *scaleDown = [scaleUp reversedAction];
+    SKAction *fullScale = [SKAction sequence:
+                           @[scaleUp, scaleDown, scaleUp, scaleDown]];
+    
+    SKAction *group = [SKAction group:@[fullScale, fullWiggle]];
+    SKAction *groupWait = [SKAction repeatAction:group count:10];
+    
+    SKAction *disappear = [SKAction scaleTo:0.0 duration:0.5];
+    SKAction *removeFromParent = [SKAction removeFromParent];
+    [label runAction:
+     [SKAction sequence:@[appear, groupWait]]];
+    
+}
 
 #pragma mark Debugging
 

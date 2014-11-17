@@ -17,7 +17,9 @@ typedef enum {
 
 @property (nonatomic) BOOL rightDirection;
 @property (nonatomic) float energy;
+@property (nonatomic) int lives;
 
 -(void)dealDamage:(NSMutableArray *)entities attackType:(AttackType)attack;
+-(void)deathByFall;
 
 @end

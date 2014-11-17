@@ -29,6 +29,7 @@ static const float BAELOG_MAX_HEALTH = 100;
     NSArray *_pushUp;
     NSArray *_hang;
     NSArray *_singleFrame;
+    NSArray *_voidFallFrame;
     NSArray *_death;
     
     NSArray *_walkL;
@@ -45,11 +46,14 @@ static const float BAELOG_MAX_HEALTH = 100;
     NSArray *_pushUpL;
     NSArray *_hangL;
     NSArray *_singleFrameL;
+    NSArray *_voidFallFrameL;
     NSArray *_deathL;
     
     NSTimeInterval _dt;
     NSTimeInterval _tick;
     NSTimeInterval _deathTimer;
+    
+    BOOL _fallDeath;
     
 }
 
@@ -61,6 +65,7 @@ static const float BAELOG_MAX_HEALTH = 100;
         self.energy = 100;
         self.dead = NO;
         _deathTimer = 0;
+        _lives = 3;
     }
     return self;
 }
@@ -115,6 +120,8 @@ static const float BAELOG_MAX_HEALTH = 100;
         return [self hangAnimation];
     } else if ([key isEqualToString:@"frame"]) {
         return [self singleFrame];
+    } else if ([key isEqualToString:@"voidFall"]) {
+        return [self voidFallFrame];
     } else if ([key isEqualToString:@"death"]) {
         return [self deathAnimation];
     } else if ([key isEqualToString:@"walkLeft"]) {
@@ -145,12 +152,15 @@ static const float BAELOG_MAX_HEALTH = 100;
         return [self hangAnimationLeft];
     } else if ([key isEqualToString:@"frameLeft"]) {
         return [self singleFrameLeft];
+    } else if ([key isEqualToString:@"voidFallLeft"]) {
+        return [self voidFallFrameLeft];
     } else if ([key isEqualToString:@"deathLeft"]) {
         return [self deathAnimationLeft];
     }
     return nil;
 }
 
+#pragma mark -
 #pragma mark Right Movement
 
 -(NSArray *)walkAnimation
@@ -371,6 +381,15 @@ static const float BAELOG_MAX_HEALTH = 100;
     }
     _singleFrame = [NSArray arrayWithObject:[SKTexture textureWithImageNamed:@"Baelog-2-0"]];
     return _singleFrame;
+}
+
+-(NSArray *)voidFallFrame
+{
+    if (_voidFallFrame) {
+        return _voidFallFrame;
+    }
+    _voidFallFrame = [NSArray arrayWithObject:[SKTexture textureWithImageNamed:@"Baelog15-0"]];
+    return _voidFallFrame;
 }
 
 -(NSArray *)deathAnimation
@@ -610,6 +629,15 @@ static const float BAELOG_MAX_HEALTH = 100;
     return _singleFrameL;
 }
 
+-(NSArray *)voidFallFrameLeft
+{
+    if (_voidFallFrameL) {
+        return _voidFallFrameL;
+    }
+    _voidFallFrameL = [NSArray arrayWithObject:[SKTexture textureWithImageNamed:@"LBaelog15-7"]];
+    return _voidFallFrameL;
+}
+
 -(NSArray *)deathAnimationLeft
 {
     if (_deathL) {
@@ -625,6 +653,7 @@ static const float BAELOG_MAX_HEALTH = 100;
     return _deathL;
 }
 
+#pragma mark -
 #pragma mark Combat
 
 -(void)takeDamage:(float)damage
@@ -769,12 +798,46 @@ static const float BAELOG_MAX_HEALTH = 100;
     }
 }
 
+-(void)deathByFall
+{
+    if (_fallDeath) {
+        _deathTimer += _dt;
+        if (_deathTimer < 1.5) {
+            return;
+        }
+        else
+        {
+            [self resetMe];
+            [self toBeginning];
+        }
+    }
+    if (![self actionForKey:@"fallVoid"] &&
+        ![self actionForKey:@"fallVoidLeft"]) {
+        _fallDeath = YES;
+        if (_rightDirection) {
+            [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"voidFall"] timePerFrame:3] withKey:@"fallVoid"];
+        }
+        else
+        {
+            [self runAction:[SKAction animateWithTextures:[self animationTexturesWithKey:@"voidFallLeft"] timePerFrame:3] withKey:@"fallVoidLeft"];
+        }
+        [[SKTAudio sharedInstance] playSoundEffect:@"void.wav"];
+    }
+}
+
 -(void)resetMe
 {
+    _lives--;
     self.health = BAELOG_MAX_HEALTH;
     self.energy = 100;
     self.dead = NO;
+    _fallDeath = NO;
     _deathTimer = 0;
+}
+
+-(void)toBeginning
+{
+    self.position = CGPointMake(256, 150);
 }
 
 @end
