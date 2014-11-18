@@ -389,7 +389,6 @@ static const float KNIGHT_MAX_HEALTH = 100;
         }
         
         [self runAction:damage withKey:@"damage"];
-        //self.dead = YES;
     }
 }
 

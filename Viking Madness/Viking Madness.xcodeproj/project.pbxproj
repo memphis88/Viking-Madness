@@ -12,6 +12,7 @@
 		DF327AC41A0D40C100D451B4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DF327AC31A0D40C100D451B4 /* libz.dylib */; };
 		DF327AC61A0D40EF00D451B4 /* level1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = DF327AC51A0D40EF00D451B4 /* level1.tmx */; };
 		DF327AC81A0D45EE00D451B4 /* tiles2_2_bank.png in Resources */ = {isa = PBXBuildFile; fileRef = DF327AC71A0D45EE00D451B4 /* tiles2_2_bank.png */; };
+		DF65CD3D1A1B18DA005B3954 /* questLog.png in Resources */ = {isa = PBXBuildFile; fileRef = DF65CD3C1A1B18DA005B3954 /* questLog.png */; };
 		DF9157241A006B5A00B89BFF /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9157231A006B5A00B89BFF /* logo.png */; };
 		DF9157261A006B6600B89BFF /* mainMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9157251A006B6600B89BFF /* mainMenu.png */; };
 		DF9446DA1A0DC1C400E08235 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = DF9446D91A0DC1C400E08235 /* bg.png */; };
@@ -319,6 +320,7 @@
 		DF327AC31A0D40C100D451B4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		DF327AC51A0D40EF00D451B4 /* level1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level1.tmx; sourceTree = "<group>"; };
 		DF327AC71A0D45EE00D451B4 /* tiles2_2_bank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiles2_2_bank.png; sourceTree = "<group>"; };
+		DF65CD3C1A1B18DA005B3954 /* questLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questLog.png; sourceTree = "<group>"; };
 		DF9157231A006B5A00B89BFF /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		DF9157251A006B6600B89BFF /* mainMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainMenu.png; sourceTree = "<group>"; };
 		DF9446D91A0DC1C400E08235 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
@@ -790,6 +792,7 @@
 		DFDF45771A0527F60009EC4D /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				DF65CD3C1A1B18DA005B3954 /* questLog.png */,
 				DFD0699D1A14647500B3DFDC /* beer.png */,
 				DFDF458E1A0530060009EC4D /* Level 1 */,
 			);
@@ -1410,6 +1413,7 @@
 				FBBED8571A039AD800A8253F /* LBaelog18-6.png in Resources */,
 				DFAB53021A01BF1C00914D0E /* Knight_SSlash_03.png in Resources */,
 				DFD069891A13EB8500B3DFDC /* punch.wav in Resources */,
+				DF65CD3D1A1B18DA005B3954 /* questLog.png in Resources */,
 				FB4E498C19F7F99100C715F4 /* Baelog-2-1.png in Resources */,
 				FB4E499319F7F99100C715F4 /* Baelog-4-4.png in Resources */,
 				FBBED83F1A039AD800A8253F /* LBaelog13-3.png in Resources */,

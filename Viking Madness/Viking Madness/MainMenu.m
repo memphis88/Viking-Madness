@@ -166,16 +166,10 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    /* Called when a touch begins */
-    //dummy scene call
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
     NSArray *nodes = [self nodesAtPoint:location];
     for (SKNode *node in nodes) {
-        //go through nodes, get the zPosition if you want
-        //int nodePos = node.zPosition;
-        
-        //or check the node against your nodes
         if ([node.name isEqualToString:@"play"] || [node.name isEqualToString:@"playButton"]) {
             [self playPressed];
             break;
@@ -190,17 +184,23 @@
                 SKTransition *reveal = [SKTransition doorsOpenHorizontalWithDuration:0.5];
                 [self.view presentScene:myScene transition:reveal];
             }];
-            [self runAction:block];
+            [_storyButton runAction:_tilt];
+            [_story runAction:_tilt completion:^{
+                [self runAction:block];
+            }];
             break;
         }
     }
-    
-    //end
 }
 
 -(void)initActions
 {
     _fade = [SKAction fadeOutWithDuration:0.5];
+    
+    SKAction *wiggle = [SKAction rotateByAngle:M_PI/16 duration:0.05];
+    SKAction *wiggleLeft = [wiggle reversedAction];
+    SKAction *normalPos = [SKAction rotateToAngle:0 duration:0.05];
+    _tilt = [SKAction repeatAction:[SKAction sequence:@[wiggle, normalPos, wiggleLeft, normalPos]] count:3];
 }
 
 -(void)playPressed
