@@ -11,3 +11,6 @@ mainly include collection of items and enemy slaying. In the brawler mode, the g
 many enemies as possible in order to achieve a high score (this means that the viking eventually will die, as difficulty will increase).
 
 The game uses mostly existing sprites. No copyright is claimed for any of the images, I do not own any of them.
+
+A brief overview of our first deliverable prototype:
+https://www.youtube.com/watch?v=B_M2ZnVwzBg
