@@ -13,4 +13,7 @@ many enemies as possible in order to achieve a high score (this means that the v
 The game uses mostly existing sprites. No copyright is claimed for any of the images, I do not own any of them.
 
 A brief overview of our first deliverable prototype:
-https://www.youtube.com/watch?v=B_M2ZnVwzBg
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=B_M2ZnVwzBg
+" target="_blank"><img src="http://img.youtube.com/vi/B_M2ZnVwzBg/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
